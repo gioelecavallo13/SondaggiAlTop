@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+
+<html lang="it"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface": "#f9f9ff",
+                    "tertiary-container": "#b75b00",
+                    "surface-variant": "#e1e2ec",
+                    "surface-container": "#ecedf7",
+                    "on-tertiary-fixed": "#311400",
+                    "tertiary-fixed": "#ffdcc6",
+                    "on-secondary-fixed-variant": "#304671",
+                    "on-tertiary-fixed-variant": "#723600",
+                    "on-error-container": "#93000a",
+                    "surface-container-lowest": "#ffffff",
+                    "primary": "#0058be",
+                    "error-container": "#ffdad6",
+                    "surface-dim": "#d8d9e3",
+                    "primary-container": "#2170e4",
+                    "secondary-container": "#b6ccff",
+                    "secondary": "#495e8a",
+                    "tertiary": "#924700",
+                    "primary-fixed": "#d8e2ff",
+                    "on-primary-fixed": "#001a42",
+                    "on-primary-container": "#fefcff",
+                    "tertiary-fixed-dim": "#ffb786",
+                    "secondary-fixed": "#d8e2ff",
+                    "on-secondary-container": "#405682",
+                    "inverse-surface": "#2e3038",
+                    "outline": "#727785",
+                    "on-secondary-fixed": "#001a42",
+                    "on-primary-fixed-variant": "#004395",
+                    "surface-container-high": "#e6e7f2",
+                    "primary-fixed-dim": "#adc6ff",
+                    "on-surface": "#191b23",
+                    "surface-container-low": "#f2f3fd",
+                    "inverse-primary": "#adc6ff",
+                    "outline-variant": "#c2c6d6",
+                    "surface-container-highest": "#e1e2ec",
+                    "error": "#ba1a1a",
+                    "on-error": "#ffffff",
+                    "on-tertiary-container": "#fffbff",
+                    "on-primary": "#ffffff",
+                    "secondary-fixed-dim": "#b1c6f9",
+                    "surface-bright": "#f9f9ff",
+                    "inverse-on-surface": "#eff0fa",
+                    "on-background": "#191b23",
+                    "background": "#f9f9ff",
+                    "on-secondary": "#ffffff",
+                    "surface-tint": "#005ac2",
+                    "on-tertiary": "#ffffff",
+                    "on-surface-variant": "#424754"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "1.5rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .tonal-shift { transition: background-color 0.3s ease; }
+        .glass-nav { backdrop-filter: blur(20px); }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface antialiased">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-xl shadow-sm">
+<div class="flex justify-between items-center h-20 px-8 max-w-7xl mx-auto">
+<div class="text-2xl font-black text-blue-700 font-headline tracking-tight">Sondaggi Al Top</div>
+<nav class="hidden md:flex items-center space-x-8">
+<a class="text-slate-600 hover:text-blue-600 transition-colors font-label body-md" href="#">Home</a>
+<a class="text-slate-600 hover:text-blue-600 transition-colors font-label body-md" href="#">Sondaggi pubblici</a>
+<a class="text-slate-600 hover:text-blue-600 transition-colors font-label body-md" href="#">Chi siamo</a>
+<a class="text-slate-600 hover:text-blue-600 transition-colors font-label body-md" href="#">Contatti</a>
+</nav>
+<div class="flex items-center space-x-4">
+<button class="px-6 py-2.5 rounded-full font-semibold text-blue-600 hover:bg-blue-50/50 transition-all duration-300">Login</button>
+<button class="px-6 py-2.5 rounded-full font-bold bg-primary text-on-primary shadow-lg shadow-primary/20 active:scale-95 duration-200 ease-in-out">Registrazione</button>
+</div>
+</div>
+</header>
+<main class="pt-32 pb-24 px-8 max-w-7xl mx-auto">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+<div class="space-y-2">
+<h1 class="font-headline text-4xl font-extrabold tracking-tight text-on-surface">Bentornato, Marco</h1>
+<p class="text-on-surface-variant text-lg">Ecco una panoramica della tua attività e dei tuoi sondaggi.</p>
+</div>
+<button class="flex items-center justify-center gap-2 px-8 py-4 bg-primary text-white font-bold rounded-full shadow-xl shadow-primary/25 hover:opacity-90 active:scale-95 transition-all">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+                Nuovo sondaggio
+            </button>
+</div>
+<!-- Statistics Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-16">
+<div class="md:col-span-2 p-8 rounded-xl bg-primary-container text-on-primary-container relative overflow-hidden group">
+<div class="relative z-10">
+<p class="font-label font-medium opacity-80 mb-2 uppercase tracking-widest text-xs">Sondaggi Creati</p>
+<h3 class="font-headline text-6xl font-black mb-4">4</h3>
+<p class="text-sm font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="trending_up">trending_up</span>
+                        +1 rispetto al mese scorso
+                    </p>
+</div>
+<div class="absolute -right-10 -bottom-10 opacity-10 group-hover:scale-110 transition-transform duration-700">
+<span class="material-symbols-outlined text-[12rem]" data-icon="leaderboard">leaderboard</span>
+</div>
+</div>
+<div class="p-8 rounded-xl bg-secondary-container text-on-secondary-container relative overflow-hidden">
+<p class="font-label font-medium opacity-80 mb-2 uppercase tracking-widest text-xs">Compilazioni Totali</p>
+<h3 class="font-headline text-5xl font-black mb-4">150</h3>
+<div class="w-12 h-1 bg-on-secondary-container/20 rounded-full"></div>
+</div>
+<div class="p-8 rounded-xl bg-surface-container-highest text-on-surface relative overflow-hidden">
+<p class="font-label font-medium text-on-surface-variant mb-2 uppercase tracking-widest text-xs">Tasso di Completamento</p>
+<h3 class="font-headline text-5xl font-black mb-4">87%</h3>
+<p class="text-sm font-medium text-primary">Eccellente</p>
+</div>
+</div>
+<!-- My Surveys List -->
+<section>
+<div class="flex items-center justify-between mb-8">
+<h2 class="font-headline text-2xl font-bold tracking-tight">I Tuoi Sondaggi</h2>
+<div class="flex gap-2">
+<button class="p-2 rounded-lg bg-surface-container hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined" data-icon="filter_list">filter_list</span>
+</button>
+<button class="p-2 rounded-lg bg-surface-container hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined" data-icon="sort">sort</span>
+</button>
+</div>
+</div>
+<div class="space-y-4">
+<!-- Survey Item 1 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-6 hover:bg-surface-container-low transition-all duration-300">
+<div class="flex items-center gap-6">
+<div class="w-16 h-16 rounded-xl bg-primary-container/10 flex items-center justify-center text-primary overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="vibrant abstract digital data visualization with flowing lines and blue tones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhVd4hyzkN0-Qw4zgifR1bS-up9n09vljsEfHag7hJRd7NNmSOp9xV5yiAUUMkse1NO-IR2jT12IT1bvW6qkVIldAJ3D5wKwjxytNryenBGOYvfPLO6R-LhjHiCtfvzp2RsJo8SaRQvKdFE8l-kd0dMiqU5nniXk53kB_fu2uR0jQ5GtKPeaDJ-6U5wkpD3hv0QgXxTcTgbS2JuE57Y-ijmuz62eHoHYoHBEejUlil8vtAYvhS281hPRFi_NCDHyPnn3PjJ_buH4b0"/>
+</div>
+<div>
+<h4 class="font-headline font-bold text-xl mb-1">Soddisfazione Clienti Q3</h4>
+<div class="flex items-center gap-3">
+<span class="px-3 py-1 rounded-full bg-on-primary-fixed-variant/10 text-on-primary-fixed-variant text-xs font-bold uppercase tracking-wider">Pubblico</span>
+<span class="text-on-surface-variant text-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="event">event</span>
+                                    12 Ottobre 2023
+                                </span>
+</div>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-3">
+<button class="flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-2 text-sm font-semibold text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="edit">edit</span> Modifica
+                        </button>
+<button class="flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-2 text-sm font-semibold text-primary bg-primary-fixed-dim/20 hover:bg-primary-fixed-dim/40 rounded-full transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="analytics">analytics</span> Statistiche
+                        </button>
+<button class="flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-2 text-sm font-semibold text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="visibility">visibility</span> Apri
+                        </button>
+<button class="p-2 text-error hover:bg-error-container/20 rounded-full transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="delete">delete</span>
+</button>
+</div>
+</div>
+<!-- Survey Item 2 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-6 hover:bg-surface-container-low transition-all duration-300">
+<div class="flex items-center gap-6">
+<div class="w-16 h-16 rounded-xl bg-primary-container/10 flex items-center justify-center text-primary overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="professional workspace top view with notebook and clean minimalist desk setup" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCtSPyZbvgR_6OKEz_dXTlAQs1q7BM4RBMWunk5fNU5llO3uCHQ1AIohYnPyjaHsIe8QEwjH_H5gTO4_g2T8UFUvFqCkkKDFK56ncn7Bhr_n_FDtOUbWb0yObZ72FOzb6aCwLqqL0oKAWlddXv4cyusl0n_RwfmR6Hyr6jQrrFhoHmunWPO3ApPlAtvnL35Onfu2X6TYl6_GTR6Fk_edTQCe3yQvUYtgjBH3oC0EFDUfjTSeYdXYFK_IP6JLQrlk-SadTa8ULGn4uZ4"/>
+</div>
+<div>
+<h4 class="font-headline font-bold text-xl mb-1">Feedback Nuovo Design</h4>
+<div class="flex items-center gap-3">
+<span class="px-3 py-1 rounded-full bg-surface-container-highest text-on-surface-variant text-xs font-bold uppercase tracking-wider">Privato</span>
+<span class="text-on-surface-variant text-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="event">event</span>
+                                    05 Ottobre 2023
+                                </span>
+</div>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-3">
+<button class="flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-2 text-sm font-semibold text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="edit">edit</span> Modifica
+                        </button>
+<button class="flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-2 text-sm font-semibold text-primary bg-primary-fixed-dim/20 hover:bg-primary-fixed-dim/40 rounded-full transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="analytics">analytics</span> Statistiche
+                        </button>
+<button class="flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-2 text-sm font-semibold text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="visibility">visibility</span> Apri
+                        </button>
+<button class="p-2 text-error hover:bg-error-container/20 rounded-full transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="delete">delete</span>
+</button>
+</div>
+</div>
+<!-- Survey Item 3 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-6 hover:bg-surface-container-low transition-all duration-300">
+<div class="flex items-center gap-6">
+<div class="w-16 h-16 rounded-xl bg-primary-container/10 flex items-center justify-center text-primary overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="creative team brainstorming session with colorful notes on a glass wall" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAbYkmGd5YjaA_ZvivTZsaeG6qlOdhZGHs0Rpyu67oPjeNboYAKH6wPRBPuvv0n8BvwFjsPwNw7Nsjr4l9NJuvzGRYTj2fLW-O_WgPoTPEC6dWTR-0Zgn3Dpwts4LpkmqEJozpPNoBf9_4Rkhagll2PEXv54M9lITNJVbHQfIG8frpRg1507dzKrvIBvKsqU0JLCVsih7zzLBddBfOa2XwVTDlHEAmj7SVNR8Ry2cX5WPpvLyS_AUMPtZgAs9eyajat8AtyjDmWQrPR"/>
+</div>
+<div>
+<h4 class="font-headline font-bold text-xl mb-1">Ricerca Mercato 2024</h4>
+<div class="flex items-center gap-3">
+<span class="px-3 py-1 rounded-full bg-on-primary-fixed-variant/10 text-on-primary-fixed-variant text-xs font-bold uppercase tracking-wider">Pubblico</span>
+<span class="text-on-surface-variant text-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="event">event</span>
+                                    28 Settembre 2023
+                                </span>
+</div>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-3">
+<button class="flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-2 text-sm font-semibold text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="edit">edit</span> Modifica
+                        </button>
+<button class="flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-2 text-sm font-semibold text-primary bg-primary-fixed-dim/20 hover:bg-primary-fixed-dim/40 rounded-full transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="analytics">analytics</span> Statistiche
+                        </button>
+<button class="flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-2 text-sm font-semibold text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="visibility">visibility</span> Apri
+                        </button>
+<button class="p-2 text-error hover:bg-error-container/20 rounded-full transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="delete">delete</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-slate-50 border-t-0">
+<div class="flex flex-col md:flex-row justify-between items-center py-12 px-8 max-w-7xl mx-auto space-y-4 md:space-y-0">
+<div class="font-headline font-bold text-slate-900">Sondaggi Al Top</div>
+<div class="flex flex-wrap justify-center gap-8">
+<a class="text-slate-500 hover:text-blue-700 transition-colors body-md" href="#">Privacy Policy</a>
+<a class="text-slate-500 hover:text-blue-700 transition-colors body-md" href="#">Termini di Servizio</a>
+<a class="text-slate-500 hover:text-blue-700 transition-colors body-md" href="#">Facebook</a>
+<a class="text-slate-500 hover:text-blue-700 transition-colors body-md" href="#">LinkedIn</a>
+<a class="text-slate-500 hover:text-blue-700 transition-colors body-md" href="#">Twitter</a>
+</div>
+<div class="text-slate-500 body-md">© 2024 Sondaggi Al Top. Tutti i diritti riservati.</div>
+</div>
+</footer>
+</body></html>

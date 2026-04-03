@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+
+<html lang="it"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface": "#f9f9ff",
+                    "tertiary-container": "#b75b00",
+                    "surface-variant": "#e1e2ec",
+                    "surface-container": "#ecedf7",
+                    "on-tertiary-fixed": "#311400",
+                    "tertiary-fixed": "#ffdcc6",
+                    "on-secondary-fixed-variant": "#304671",
+                    "on-tertiary-fixed-variant": "#723600",
+                    "on-error-container": "#93000a",
+                    "surface-container-lowest": "#ffffff",
+                    "primary": "#0058be",
+                    "error-container": "#ffdad6",
+                    "surface-dim": "#d8d9e3",
+                    "primary-container": "#2170e4",
+                    "secondary-container": "#b6ccff",
+                    "secondary": "#495e8a",
+                    "tertiary": "#924700",
+                    "primary-fixed": "#d8e2ff",
+                    "on-primary-fixed": "#001a42",
+                    "on-primary-container": "#fefcff",
+                    "tertiary-fixed-dim": "#ffb786",
+                    "secondary-fixed": "#d8e2ff",
+                    "on-secondary-container": "#405682",
+                    "inverse-surface": "#2e3038",
+                    "outline": "#727785",
+                    "on-secondary-fixed": "#001a42",
+                    "on-primary-fixed-variant": "#004395",
+                    "surface-container-high": "#e6e7f2",
+                    "primary-fixed-dim": "#adc6ff",
+                    "on-surface": "#191b23",
+                    "surface-container-low": "#f2f3fd",
+                    "inverse-primary": "#adc6ff",
+                    "outline-variant": "#c2c6d6",
+                    "surface-container-highest": "#e1e2ec",
+                    "error": "#ba1a1a",
+                    "on-error": "#ffffff",
+                    "on-tertiary-container": "#fffbff",
+                    "on-primary": "#ffffff",
+                    "secondary-fixed-dim": "#b1c6f9",
+                    "surface-bright": "#f9f9ff",
+                    "inverse-on-surface": "#eff0fa",
+                    "on-background": "#191b23",
+                    "background": "#f9f9ff",
+                    "on-secondary": "#ffffff",
+                    "surface-tint": "#005ac2",
+                    "on-tertiary": "#ffffff",
+                    "on-surface-variant": "#424754"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .tonal-shift { transition: background-color 0.3s ease; }
+        .glass-nav { backdrop-filter: blur(20px); }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl shadow-sm dark:shadow-none">
+<nav class="flex justify-between items-center h-20 px-8 max-w-7xl mx-auto">
+<div class="text-2xl font-black text-blue-700 dark:text-blue-500 font-headline tracking-tight">
+                Sondaggi Al Top
+            </div>
+<div class="hidden md:flex items-center space-x-8">
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 transition-colors font-inter text-sm body-md" href="#">Home</a>
+<a class="text-blue-700 dark:text-blue-400 border-b-2 border-blue-700 dark:border-blue-400 pb-1 font-bold font-inter text-sm body-md" href="#">Sondaggi pubblici</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 transition-colors font-inter text-sm body-md" href="#">Chi siamo</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 transition-colors font-inter text-sm body-md" href="#">Contatti</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="px-5 py-2 text-sm font-semibold text-blue-600 dark:text-blue-400 hover:bg-blue-50/50 transition-all rounded-full">Login</button>
+<button class="px-6 py-2.5 bg-gradient-to-r from-primary to-primary-container text-white text-sm font-bold rounded-full shadow-lg shadow-primary/20 hover:scale-95 transition-all duration-200">Registrazione</button>
+</div>
+</nav>
+</header>
+<main class="pt-32 pb-20 px-8 max-w-7xl mx-auto">
+<!-- Hero Section -->
+<section class="mb-16">
+<h1 class="font-headline text-5xl md:text-6xl font-extrabold tracking-tight text-on-surface mb-6">
+                Sondaggi Pubblici
+            </h1>
+<p class="text-on-surface-variant text-lg max-w-2xl leading-relaxed">
+                Esplora la nostra collezione di sondaggi aperti. La tua opinione è il motore del cambiamento. Scegli un tema e partecipa ora.
+            </p>
+</section>
+<!-- Filters & Search Bar -->
+<section class="mb-12 space-y-8">
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+<!-- Search Bar -->
+<div class="relative flex-grow max-w-xl">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full pl-12 pr-6 py-4 bg-surface-container-highest rounded-xl border-none focus:ring-2 focus:ring-primary focus:bg-surface-container-low transition-all placeholder:text-outline" placeholder="Cerca sondaggi per titolo o parola chiave..." type="text"/>
+</div>
+<!-- Category Chips -->
+<div class="flex flex-wrap gap-3">
+<button class="px-5 py-2 rounded-full bg-primary text-on-primary font-semibold text-sm transition-all hover:opacity-90">Tutti</button>
+<button class="px-5 py-2 rounded-full bg-secondary-container text-on-secondary-container font-medium text-sm hover:bg-primary-fixed-dim transition-all">Politica</button>
+<button class="px-5 py-2 rounded-full bg-secondary-container text-on-secondary-container font-medium text-sm hover:bg-primary-fixed-dim transition-all">Animali</button>
+<button class="px-5 py-2 rounded-full bg-secondary-container text-on-secondary-container font-medium text-sm hover:bg-primary-fixed-dim transition-all">Sport</button>
+<button class="px-5 py-2 rounded-full bg-secondary-container text-on-secondary-container font-medium text-sm hover:bg-primary-fixed-dim transition-all">Tecnologia</button>
+<button class="px-5 py-2 rounded-full bg-secondary-container text-on-secondary-container font-medium text-sm hover:bg-primary-fixed-dim transition-all">Ambiente</button>
+</div>
+</div>
+</section>
+<!-- Surveys Grid (Bento Style Variation) -->
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Card 1 -->
+<div class="group flex flex-col bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+<div class="h-48 overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Modern government building with glass facade under a clear blue sky, representing civic engagement and politics" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOAfwtMF4W9Btr9U3700mpxyyRJTy6xnwsRQ3moMuP8jJU1tn41zmVuoUBGCW3xt2Oz9_xw7Nhz5Ro7iSHkk2HX4_NbOn_PpYrtYlMCKc7lAdkevr2utZwVzcmXGd8_UaWUS3Bsa2al66boWHry204KwPZUEuCOE3pNtj9iQGK8QO0ZvvwkVQi32OF0Cftb4Hk3OOKGBlVfa8dXNORzW_096dCdb603i_NP-k241aHQPY-vCMlfy9fHsgP4cC3GkDYAVLblwoBqtiy"/>
+<div class="absolute top-4 left-4">
+<span class="px-3 py-1 bg-white/90 backdrop-blur-md text-primary text-xs font-bold rounded-full uppercase tracking-wider">Politica</span>
+</div>
+</div>
+<div class="p-8 flex flex-col flex-grow">
+<h3 class="font-headline text-xl font-bold mb-3 group-hover:text-primary transition-colors">Il futuro del voto elettronico in Italia</h3>
+<p class="text-on-surface-variant text-sm mb-6 flex-grow">Cosa ne pensano i cittadini dell'introduzione di sistemi digitali per le consultazioni elettorali nazionali?</p>
+<div class="flex items-center justify-between mt-auto">
+<div class="flex items-center gap-2 text-outline">
+<span class="material-symbols-outlined text-lg">group</span>
+<span class="text-sm font-medium">1,240 risposte</span>
+</div>
+<button class="px-6 py-2 bg-primary-fixed-dim text-primary font-bold rounded-full hover:bg-primary hover:text-white transition-all text-sm">Compila</button>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="group flex flex-col bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+<div class="h-48 overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Close up portrait of a friendly golden retriever dog looking directly at the camera in a soft outdoor setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJYTnQn4LAQDl6OtCQM9GnxTar357CgS9r-MASI9wsNPPlU6ymPRLvGRRqAM2Bh-_Kch_5XvnB021t1UuFFmn4Ss8YdBeBLYlPRjdN77GXg69Yz1prjUB3tXqsWeJbLfgqfILyUtD9Q_1-XdkOnGBUnKVOl9Bht2hrJSMhNRnSEaD-HZvqjsT6cGVKVwbhBV5iHXb2xY9D1G6kXaY1MOwl7hpw6ZzLf8v0EvnvLv7EwXM6SxSzB2gaK2DRxeRv-ojRr3q-YhIrUkTm"/>
+<div class="absolute top-4 left-4">
+<span class="px-3 py-1 bg-white/90 backdrop-blur-md text-primary text-xs font-bold rounded-full uppercase tracking-wider">Animali</span>
+</div>
+</div>
+<div class="p-8 flex flex-col flex-grow">
+<h3 class="font-headline text-xl font-bold mb-3 group-hover:text-primary transition-colors">Adozioni consapevoli: canili vs allevamenti</h3>
+<p class="text-on-surface-variant text-sm mb-6 flex-grow">Un'indagine sulle preferenze dei futuri proprietari e sulla conoscenza delle realtà dei rifugi locali.</p>
+<div class="flex items-center justify-between mt-auto">
+<div class="flex items-center gap-2 text-outline">
+<span class="material-symbols-outlined text-lg">group</span>
+<span class="text-sm font-medium">856 risposte</span>
+</div>
+<button class="px-6 py-2 bg-primary-fixed-dim text-primary font-bold rounded-full hover:bg-primary hover:text-white transition-all text-sm">Compila</button>
+</div>
+</div>
+</div>
+<!-- Card 3 (Bento-ish Highlight) -->
+<div class="group flex flex-col bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border-2 border-primary/10">
+<div class="h-48 overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Wide shot of a professional basketball arena with bright lights and a packed audience watching a game" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJzB6dvzUnUj1jbHbl5H4zue5fo-t40PfjLhfyy7iz-p3BFj2MQJ4e03zmy2a_AblaEmbWUS4awSx8p1kF8vvyXzV4GLg-k6-cmeD5Oz6rPIhD9xcUmRAKwKy3iP8AkauQNoisElIcjevN87V2327yMmOTt3mGlbCEV-EcWQI2O0BjsoLoq2yiOLLwzaCL_5UwSPgzOEwXBVD7JHbSylqpo9kRcHXCKJwwO0pUeoCoWSqwrOkoIz40ataDoNn3qf7clWHllsYnlgBp"/>
+<div class="absolute top-4 left-4 flex gap-2">
+<span class="px-3 py-1 bg-white/90 backdrop-blur-md text-primary text-xs font-bold rounded-full uppercase tracking-wider">Sport</span>
+<span class="px-3 py-1 bg-error-container text-on-error-container text-xs font-bold rounded-full uppercase tracking-wider">Popolare</span>
+</div>
+</div>
+<div class="p-8 flex flex-col flex-grow">
+<h3 class="font-headline text-xl font-bold mb-3 group-hover:text-primary transition-colors">Nuove discipline alle Olimpiadi 2028</h3>
+<p class="text-on-surface-variant text-sm mb-6 flex-grow">Quali sport emergenti vorresti vedere inclusi nel programma olimpico della prossima edizione?</p>
+<div class="flex items-center justify-between mt-auto">
+<div class="flex items-center gap-2 text-outline">
+<span class="material-symbols-outlined text-lg">group</span>
+<span class="text-sm font-medium">3,412 risposte</span>
+</div>
+<button class="px-6 py-2 bg-gradient-to-br from-primary to-primary-container text-white font-bold rounded-full hover:shadow-lg transition-all text-sm">Compila</button>
+</div>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="group flex flex-col bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+<div class="h-48 overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Sleek silver humanoid robot hand touching a glass screen with digital data points and neural network lines" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCEOvJZtpLrnFUtiirnBPHY3n8dxLzGj0xcGQH2UGswrG-4JOovM-bgmrlw0AEcfOX4Z4QAPvh26I0BIoNQnnCDvuXtMtbDYFoFC0iVF7xNCF7q56ZCa8HXNEMy-_Tdl_GFFfL3pSU1U2Wrx7oNtjY8bXy2Y5JAd1uuofOLlDMvNo2g13_V-GBT8Ps5DVkXWYQ-2uNYMkyal1OXdtgdmjTxl1Kf-4Ka_aZDzW2VP_CxBf9RO8A2yTzGJmp0g3_wPKHQcIfEfVFaQoLr"/>
+<div class="absolute top-4 left-4">
+<span class="px-3 py-1 bg-white/90 backdrop-blur-md text-primary text-xs font-bold rounded-full uppercase tracking-wider">Tecnologia</span>
+</div>
+</div>
+<div class="p-8 flex flex-col flex-grow">
+<h3 class="font-headline text-xl font-bold mb-3 group-hover:text-primary transition-colors">AI nel quotidiano: aiuto o minaccia?</h3>
+<p class="text-on-surface-variant text-sm mb-6 flex-grow">Esploriamo la percezione pubblica sull'intelligenza artificiale generativa e il suo impatto sul lavoro.</p>
+<div class="flex items-center justify-between mt-auto">
+<div class="flex items-center gap-2 text-outline">
+<span class="material-symbols-outlined text-lg">group</span>
+<span class="text-sm font-medium">5,102 risposte</span>
+</div>
+<button class="px-6 py-2 bg-primary-fixed-dim text-primary font-bold rounded-full hover:bg-primary hover:text-white transition-all text-sm">Compila</button>
+</div>
+</div>
+</div>
+<!-- Card 5 -->
+<div class="group flex flex-col bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+<div class="h-48 overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Close up of a vibrant green leaf with water droplets glistening in soft natural sunlight" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCrw1ucmqeM4cfLbPpWUpsja35h_1RgAkdlNAc3fhcrMSHskpKsAdDjp0zHInB-j7yno3d3XW01KLTiFwOKWN0_Y6mBUIwsEvrSY3GO-Ra6TgsHT8mle-AFOyhcPVX16dgBdWylCv3FIw2B8EdvDwIWydzz61XVOj4I_2SLeEKTXPx9khi8PaOmGVOBPdnLVYUN5jjS8VpPZobNAYkCOPQMo8zCHBl-U6pLEi2-lhxYtmJ5Wcw8Av13DUDbCF78hBNOAa4_YkNn0B9"/>
+<div class="absolute top-4 left-4">
+<span class="px-3 py-1 bg-white/90 backdrop-blur-md text-primary text-xs font-bold rounded-full uppercase tracking-wider">Ambiente</span>
+</div>
+</div>
+<div class="p-8 flex flex-col flex-grow">
+<h3 class="font-headline text-xl font-bold mb-3 group-hover:text-primary transition-colors">Mobilità sostenibile nei centri urbani</h3>
+<p class="text-on-surface-variant text-sm mb-6 flex-grow">Quali incentivi funzionano davvero per ridurre l'uso dell'auto privata nelle grandi città?</p>
+<div class="flex items-center justify-between mt-auto">
+<div class="flex items-center gap-2 text-outline">
+<span class="material-symbols-outlined text-lg">group</span>
+<span class="text-sm font-medium">1,102 risposte</span>
+</div>
+<button class="px-6 py-2 bg-primary-fixed-dim text-primary font-bold rounded-full hover:bg-primary hover:text-white transition-all text-sm">Compila</button>
+</div>
+</div>
+</div>
+<!-- Card 6 -->
+<div class="group flex flex-col bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+<div class="h-48 overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Athlete at the starting line of a running track, focused and ready to sprint during golden hour" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBtwRB54orfA35JYsugp6saT8iV32yXPgdCKOi-eL96UDEXohHgMihmuYzSSI1qAPAU28Zg6ikcyKhTopy0WS8Ph8tblvNtAta7zZcCbMR7a6r3LeYmleLJPSh8mH10DDRyN8n5gNerbIiMILjLzUrS1gP5ls8bfriQ_sGNM6DV_8s5oMwMzPUy1TXiVNMe9hBzdvyHQZ7AVNT9YPW0vWnJwSh2Awa5_MOUOX9CwV4EK4G-NOZ3v_tvlgetZU8qd20NHuht3nV4KctT"/>
+<div class="absolute top-4 left-4">
+<span class="px-3 py-1 bg-white/90 backdrop-blur-md text-primary text-xs font-bold rounded-full uppercase tracking-wider">Sport</span>
+</div>
+</div>
+<div class="p-8 flex flex-col flex-grow">
+<h3 class="font-headline text-xl font-bold mb-3 group-hover:text-primary transition-colors">Benessere fisico e attività dilettantistica</h3>
+<p class="text-on-surface-variant text-sm mb-6 flex-grow">Quanto influisce la pratica sportiva sulla tua salute mentale quotidiana?</p>
+<div class="flex items-center justify-between mt-auto">
+<div class="flex items-center gap-2 text-outline">
+<span class="material-symbols-outlined text-lg">group</span>
+<span class="text-sm font-medium">942 risposte</span>
+</div>
+<button class="px-6 py-2 bg-primary-fixed-dim text-primary font-bold rounded-full hover:bg-primary hover:text-white transition-all text-sm">Compila</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Pagination (Implicit) -->
+<div class="mt-20 flex justify-center items-center gap-2">
+<button class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface transition-all">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-full bg-primary text-on-primary font-bold">1</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-lowest hover:bg-surface-container text-on-surface transition-all font-medium border border-outline-variant/20">2</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-lowest hover:bg-surface-container text-on-surface transition-all font-medium border border-outline-variant/20">3</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface transition-all">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-slate-50 dark:bg-slate-950 w-full py-12 border-t-0 mt-20">
+<div class="flex flex-col md:flex-row justify-between items-center px-8 max-w-7xl mx-auto space-y-4 md:space-y-0">
+<div class="font-manrope font-bold text-slate-900 dark:text-slate-100">
+                Sondaggi Al Top
+            </div>
+<div class="flex gap-6">
+<a class="text-slate-500 dark:text-slate-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors font-inter text-sm body-md" href="#">Privacy Policy</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors font-inter text-sm body-md" href="#">Termini di Servizio</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors font-inter text-sm body-md" href="#">Facebook</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors font-inter text-sm body-md" href="#">LinkedIn</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors font-inter text-sm body-md" href="#">Twitter</a>
+</div>
+<p class="text-slate-500 dark:text-slate-400 font-inter text-sm body-md">
+                © 2024 Sondaggi Al Top. Tutti i diritti riservati.
+            </p>
+</div>
+</footer>
+<!-- FAB for quick access (suppressed as per rules on detail/subpages, but kept for main list if logic applies) -->
+<button class="fixed bottom-8 right-8 w-16 h-16 bg-primary-container text-on-primary-container rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform active:scale-95 group">
+<span class="material-symbols-outlined text-3xl">add</span>
+<span class="absolute right-20 bg-primary text-white px-4 py-2 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap text-sm font-bold shadow-xl">Crea Sondaggio</span>
+</button>
+</body></html>

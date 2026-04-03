@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+
+<html class="light" lang="it"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "inverse-surface": "#2e3038",
+                    "on-secondary-fixed-variant": "#304671",
+                    "outline-variant": "#c2c6d6",
+                    "tertiary-fixed": "#ffdcc6",
+                    "surface-container": "#ecedf7",
+                    "on-primary-fixed": "#001a42",
+                    "on-tertiary": "#ffffff",
+                    "inverse-on-surface": "#eff0fa",
+                    "surface-container-highest": "#e1e2ec",
+                    "on-surface": "#191b23",
+                    "secondary-fixed-dim": "#b1c6f9",
+                    "on-primary-container": "#fefcff",
+                    "surface-bright": "#f9f9ff",
+                    "primary-container": "#2170e4",
+                    "error": "#ba1a1a",
+                    "surface-container-high": "#e6e7f2",
+                    "on-tertiary-fixed-variant": "#723600",
+                    "tertiary": "#924700",
+                    "primary-fixed": "#d8e2ff",
+                    "on-tertiary-fixed": "#311400",
+                    "tertiary-fixed-dim": "#ffb786",
+                    "primary": "#0058be",
+                    "error-container": "#ffdad6",
+                    "secondary-fixed": "#d8e2ff",
+                    "primary-fixed-dim": "#adc6ff",
+                    "surface-tint": "#005ac2",
+                    "on-primary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "on-secondary-container": "#405682",
+                    "secondary": "#495e8a",
+                    "on-primary-fixed-variant": "#004395",
+                    "on-error-container": "#93000a",
+                    "surface-container-low": "#f2f3fd",
+                    "outline": "#727785",
+                    "surface-dim": "#d8d9e3",
+                    "inverse-primary": "#adc6ff",
+                    "on-background": "#191b23",
+                    "background": "#f9f9ff",
+                    "on-secondary-fixed": "#001a42",
+                    "surface-variant": "#e1e2ec",
+                    "surface": "#f9f9ff",
+                    "secondary-container": "#b6ccff",
+                    "on-tertiary-container": "#fffbff",
+                    "on-surface-variant": "#424754",
+                    "tertiary-container": "#b75b00"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "1.5rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .tonal-shift { transition: background-color 0.3s ease; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary/20">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl shadow-sm dark:shadow-none transition-all duration-300">
+<div class="flex justify-between items-center h-20 px-8 max-w-7xl mx-auto">
+<div class="text-2xl font-black text-blue-700 dark:text-blue-500 font-headline tracking-tight">Sondaggi Al Top</div>
+<div class="hidden md:flex items-center space-x-8">
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 transition-colors font-manrope tracking-tight headline-md" href="#">Home</a>
+<a class="text-blue-700 dark:text-blue-400 border-b-2 border-blue-700 dark:border-blue-400 pb-1 font-bold font-manrope tracking-tight headline-md" href="#">Sondaggi pubblici</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 transition-colors font-manrope tracking-tight headline-md" href="#">Chi siamo</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 transition-colors font-manrope tracking-tight headline-md" href="#">Contatti</a>
+</div>
+<div class="flex items-center space-x-4">
+<button class="px-6 py-2 rounded-full text-blue-600 dark:text-blue-400 font-semibold hover:bg-blue-50/50 dark:hover:bg-blue-900/20 transition-all duration-300 Active:scale-95 duration-200 ease-in-out">Login</button>
+<button class="px-6 py-2 bg-primary text-on-primary rounded-full font-bold shadow-md hover:shadow-lg transition-all duration-300 Active:scale-95 duration-200 ease-in-out">Registrazione</button>
+</div>
+</div>
+</nav>
+<main class="pt-32 pb-24 px-8 max-w-7xl mx-auto">
+<!-- Header Section -->
+<header class="mb-12">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div>
+<span class="inline-flex items-center px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container text-xs font-bold mb-4">REPORT ATTIVO</span>
+<h1 class="text-4xl md:text-5xl font-black font-headline tracking-tighter text-on-surface mb-4">Soddisfazione Customer Care 2024</h1>
+<p class="text-on-surface-variant max-w-2xl text-lg leading-relaxed">Analisi dettagliata dei feedback ricevuti nel primo trimestre. I dati mostrano un trend positivo nell'efficienza del supporto tecnico.</p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 px-5 py-3 bg-surface-container-highest rounded-xl text-on-surface hover:bg-surface-container-high transition-colors font-semibold">
+<span class="material-symbols-outlined">download</span>
+                        Esporta PDF
+                    </button>
+<button class="flex items-center gap-2 px-5 py-3 bg-primary text-on-primary rounded-xl font-bold shadow-lg hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined" data-weight="fill">share</span>
+                        Condividi
+                    </button>
+</div>
+</div>
+</header>
+<!-- KPI Bento Grid -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+<!-- Total Responses -->
+<div class="bg-surface-container-low p-8 rounded-xl flex flex-col justify-between group hover:bg-surface-container transition-colors duration-300">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 bg-primary/10 rounded-xl text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">groups</span>
+</div>
+<span class="text-green-600 font-bold text-sm">+12% vs mese prec.</span>
+</div>
+<div>
+<div class="text-5xl font-black font-headline tracking-tighter mb-1">1.284</div>
+<div class="text-on-surface-variant font-medium">Risposte totali</div>
+</div>
+</div>
+<!-- Completion Rate -->
+<div class="bg-surface-container-low p-8 rounded-xl flex flex-col justify-between group hover:bg-surface-container transition-colors duration-300">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 bg-primary-container/20 rounded-xl text-primary-container">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">task_alt</span>
+</div>
+<span class="text-on-surface-variant font-bold text-sm">Target: 85%</span>
+</div>
+<div>
+<div class="text-5xl font-black font-headline tracking-tighter mb-1">92.4%</div>
+<div class="text-on-surface-variant font-medium">Tasso di completamento</div>
+</div>
+</div>
+<!-- Avg Time -->
+<div class="bg-surface-container-low p-8 rounded-xl flex flex-col justify-between group hover:bg-surface-container transition-colors duration-300">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 bg-secondary-container/30 rounded-xl text-secondary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">timer</span>
+</div>
+<span class="text-blue-600 font-bold text-sm">Ottimizzato</span>
+</div>
+<div>
+<div class="text-5xl font-black font-headline tracking-tighter mb-1">4m 12s</div>
+<div class="text-on-surface-variant font-medium">Tempo medio di compilazione</div>
+</div>
+</div>
+</section>
+<!-- Insights Grid -->
+<section class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+<!-- Chart 1: Bar Chart Simulation -->
+<div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm">
+<div class="flex justify-between items-center mb-8">
+<h3 class="text-xl font-bold font-headline">Andamento Settimanale</h3>
+<span class="material-symbols-outlined text-outline">more_horiz</span>
+</div>
+<div class="flex items-end justify-between h-64 gap-2 mb-4">
+<div class="flex flex-col items-center w-full group">
+<div class="w-full bg-surface-container-highest rounded-t-lg h-32 group-hover:bg-primary-fixed-dim transition-all"></div>
+<span class="text-xs mt-2 text-outline font-bold">LUN</span>
+</div>
+<div class="flex flex-col items-center w-full group">
+<div class="w-full bg-surface-container-highest rounded-t-lg h-48 group-hover:bg-primary-fixed-dim transition-all"></div>
+<span class="text-xs mt-2 text-outline font-bold">MAR</span>
+</div>
+<div class="flex flex-col items-center w-full group">
+<div class="w-full bg-primary-container rounded-t-lg h-60 transition-all"></div>
+<span class="text-xs mt-2 text-primary font-bold">MER</span>
+</div>
+<div class="flex flex-col items-center w-full group">
+<div class="w-full bg-surface-container-highest rounded-t-lg h-40 group-hover:bg-primary-fixed-dim transition-all"></div>
+<span class="text-xs mt-2 text-outline font-bold">GIO</span>
+</div>
+<div class="flex flex-col items-center w-full group">
+<div class="w-full bg-surface-container-highest rounded-t-lg h-52 group-hover:bg-primary-fixed-dim transition-all"></div>
+<span class="text-xs mt-2 text-outline font-bold">VEN</span>
+</div>
+<div class="flex flex-col items-center w-full group">
+<div class="w-full bg-surface-container-highest rounded-t-lg h-24 group-hover:bg-primary-fixed-dim transition-all"></div>
+<span class="text-xs mt-2 text-outline font-bold">SAB</span>
+</div>
+<div class="flex flex-col items-center w-full group">
+<div class="w-full bg-surface-container-highest rounded-t-lg h-16 group-hover:bg-primary-fixed-dim transition-all"></div>
+<span class="text-xs mt-2 text-outline font-bold">DOM</span>
+</div>
+</div>
+<p class="text-sm text-on-surface-variant italic">Picco massimo rilevato mercoledì pomeriggio (242 risposte).</p>
+</div>
+<!-- Chart 2: Pie Chart Simulation -->
+<div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm">
+<div class="flex justify-between items-center mb-8">
+<h3 class="text-xl font-bold font-headline">Canali di Provenienza</h3>
+<button class="text-primary text-sm font-bold">Vedi dettagli</button>
+</div>
+<div class="flex flex-col md:flex-row items-center gap-12">
+<div class="relative w-48 h-48">
+<svg class="w-full h-full transform -rotate-90" viewbox="0 0 36 36">
+<circle class="stroke-surface-container-highest" cx="18" cy="18" fill="none" r="16" stroke-width="4"></circle>
+<circle class="stroke-primary" cx="18" cy="18" fill="none" r="16" stroke-dasharray="65, 100" stroke-width="4"></circle>
+<circle class="stroke-secondary-fixed-dim" cx="18" cy="18" fill="none" r="16" stroke-dasharray="20, 100" stroke-dashoffset="-65" stroke-width="4"></circle>
+<circle class="stroke-surface-dim" cx="18" cy="18" fill="none" r="16" stroke-dasharray="15, 100" stroke-dashoffset="-85" stroke-width="4"></circle>
+</svg>
+<div class="absolute inset-0 flex items-center justify-center flex-col">
+<span class="text-2xl font-black font-headline">1.2k</span>
+<span class="text-[10px] uppercase tracking-widest text-outline font-bold">Totale</span>
+</div>
+</div>
+<div class="flex-1 space-y-4 w-full">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-primary"></span>
+<span class="text-sm font-medium">Email Marketing</span>
+</div>
+<span class="font-bold">65%</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-secondary-fixed-dim"></span>
+<span class="text-sm font-medium">Social Media</span>
+</div>
+<span class="font-bold">20%</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-surface-dim"></span>
+<span class="text-sm font-medium">Sito Web Direttamente</span>
+</div>
+<span class="font-bold">15%</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Questions Detail -->
+<section class="space-y-6">
+<h2 class="text-2xl font-black font-headline mb-8">Dettaglio Domande</h2>
+<!-- Question Item 1 -->
+<div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm border-l-4 border-primary">
+<div class="flex flex-col md:flex-row gap-8">
+<div class="flex-1">
+<span class="text-xs font-black text-primary tracking-widest uppercase mb-2 block">Domanda 1 • Scelta multipla</span>
+<h4 class="text-lg font-bold mb-6">Quanto sei soddisfatto del supporto ricevuto?</h4>
+<div class="space-y-6">
+<div class="space-y-2">
+<div class="flex justify-between text-sm font-semibold">
+<span>Molto soddisfatto</span>
+<span>72%</span>
+</div>
+<div class="h-3 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 72%"></div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-sm font-semibold">
+<span>Soddisfatto</span>
+<span>18%</span>
+</div>
+<div class="h-3 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-secondary-fixed-dim rounded-full" style="width: 18%"></div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-sm font-semibold">
+<span>Neutrale</span>
+<span>6%</span>
+</div>
+<div class="h-3 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-surface-dim rounded-full" style="width: 6%"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="md:w-64 bg-surface-container-low rounded-xl p-6 flex flex-col justify-center text-center">
+<div class="text-primary font-black text-4xl mb-2">4.8</div>
+<div class="text-xs font-bold uppercase tracking-widest text-on-surface-variant">Media Score</div>
+<div class="flex justify-center mt-3 text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">star</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Question Item 2 -->
+<div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm border-l-4 border-secondary-fixed-dim">
+<div class="flex flex-col md:flex-row gap-8">
+<div class="flex-1">
+<span class="text-xs font-black text-secondary tracking-widest uppercase mb-2 block">Domanda 2 • Vero/Falso</span>
+<h4 class="text-lg font-bold mb-6">Il problema è stato risolto al primo contatto?</h4>
+<div class="grid grid-cols-2 gap-4">
+<div class="p-6 bg-blue-50/50 rounded-xl border border-blue-100 flex flex-col items-center">
+<div class="text-3xl font-black text-primary mb-1">84%</div>
+<div class="text-sm font-bold text-on-surface-variant">Sì</div>
+</div>
+<div class="p-6 bg-slate-50 rounded-xl border border-slate-100 flex flex-col items-center">
+<div class="text-3xl font-black text-outline mb-1">16%</div>
+<div class="text-sm font-bold text-on-surface-variant">No</div>
+</div>
+</div>
+</div>
+<div class="md:w-64 flex items-center justify-center">
+<div class="text-center">
+<span class="material-symbols-outlined text-5xl text-primary mb-2">speed</span>
+<p class="text-xs font-bold text-on-surface-variant">Risoluzione Rapida</p>
+<p class="text-xl font-black">Eccellente</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-slate-50 dark:bg-slate-950 w-full py-12 border-t-0 tonal-shift">
+<div class="flex flex-col md:flex-row justify-between items-center px-8 max-w-7xl mx-auto space-y-4 md:space-y-0">
+<div class="font-manrope font-bold text-slate-900 dark:text-slate-100">Sondaggi Al Top</div>
+<div class="flex space-x-6">
+<a class="text-slate-500 dark:text-slate-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors font-inter text-sm body-md" href="#">Privacy Policy</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors font-inter text-sm body-md" href="#">Termini di Servizio</a>
+</div>
+<div class="flex space-x-4">
+<a class="text-slate-500 dark:text-slate-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors" href="#">
+<span class="material-symbols-outlined">public</span>
+</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors" href="#">
+<span class="material-symbols-outlined">alternate_email</span>
+</a>
+</div>
+<p class="text-slate-500 dark:text-slate-400 font-inter text-sm body-md opacity-100 hover:opacity-80 transition-opacity">© 2024 Sondaggi Al Top. Tutti i diritti riservati.</p>
+</div>
+</footer>
+</body></html>

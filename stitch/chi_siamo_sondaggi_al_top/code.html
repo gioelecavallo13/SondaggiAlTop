@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="it"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Chi Siamo - Sondaggi Al Top</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&amp;family=Inter:wght@300..700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-effect {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container-lowest": "#ffffff",
+                      "on-secondary": "#ffffff",
+                      "inverse-surface": "#2e3038",
+                      "on-secondary-fixed-variant": "#304671",
+                      "outline-variant": "#c2c6d6",
+                      "tertiary-fixed": "#ffdcc6",
+                      "surface-container": "#ecedf7",
+                      "on-primary-fixed": "#001a42",
+                      "on-tertiary": "#ffffff",
+                      "inverse-on-surface": "#eff0fa",
+                      "surface-container-highest": "#e1e2ec",
+                      "on-surface": "#191b23",
+                      "secondary-fixed-dim": "#b1c6f9",
+                      "on-primary-container": "#fefcff",
+                      "surface-bright": "#f9f9ff",
+                      "primary-container": "#2170e4",
+                      "error": "#ba1a1a",
+                      "surface-container-high": "#e6e7f2",
+                      "on-tertiary-fixed-variant": "#723600",
+                      "tertiary": "#924700",
+                      "primary-fixed": "#d8e2ff",
+                      "on-tertiary-fixed": "#311400",
+                      "tertiary-fixed-dim": "#ffb786",
+                      "primary": "#0058be",
+                      "error-container": "#ffdad6",
+                      "secondary-fixed": "#d8e2ff",
+                      "primary-fixed-dim": "#adc6ff",
+                      "surface-tint": "#005ac2",
+                      "on-primary": "#ffffff",
+                      "on-error": "#ffffff",
+                      "on-secondary-container": "#405682",
+                      "secondary": "#495e8a",
+                      "on-primary-fixed-variant": "#004395",
+                      "on-error-container": "#93000a",
+                      "surface-container-low": "#f2f3fd",
+                      "outline": "#727785",
+                      "surface-dim": "#d8d9e3",
+                      "inverse-primary": "#adc6ff",
+                      "on-background": "#191b23",
+                      "background": "#f9f9ff",
+                      "on-secondary-fixed": "#001a42",
+                      "surface-variant": "#e1e2ec",
+                      "surface": "#f9f9ff",
+                      "secondary-container": "#b6ccff",
+                      "on-tertiary-container": "#fffbff",
+                      "on-surface-variant": "#424754",
+                      "tertiary-container": "#b75b00"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "1.5rem",
+                      "full": "9999px"
+              },
+              "fontFamily": {
+                      "headline": ["Manrope"],
+                      "body": ["Inter"],
+                      "label": ["Inter"]
+              }
+            },
+          },
+        }
+      </script>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- Header / Navigation -->
+<header class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl shadow-sm dark:shadow-none">
+<nav class="flex justify-between items-center h-20 px-8 max-w-7xl mx-auto">
+<div class="text-2xl font-black text-blue-700 dark:text-blue-500 font-headline tracking-tight">Sondaggi Al Top</div>
+<div class="hidden md:flex items-center space-x-8">
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 transition-colors font-label" href="#">Home</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 transition-colors font-label" href="#">Sondaggi pubblici</a>
+<a class="text-blue-700 dark:text-blue-400 border-b-2 border-blue-700 dark:border-blue-400 pb-1 font-bold font-label" href="#">Chi siamo</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 transition-colors font-label" href="#">Contatti</a>
+</div>
+<div class="flex items-center space-x-4">
+<button class="px-5 py-2.5 text-slate-600 hover:text-blue-700 font-semibold transition-all">Login</button>
+<button class="px-6 py-2.5 bg-gradient-to-r from-primary to-primary-container text-white font-bold rounded-full hover:shadow-lg transition-all active:scale-95">Registrazione</button>
+</div>
+</nav>
+</header>
+<main class="pt-20">
+<!-- Hero Section -->
+<section class="relative min-h-[716px] flex items-center px-8 overflow-hidden bg-surface">
+<div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+<div class="z-10">
+<span class="inline-block py-1 px-4 rounded-full bg-secondary-container text-on-secondary-container text-xs font-bold uppercase tracking-widest mb-6">La nostra visione</span>
+<h1 class="text-5xl md:text-7xl font-headline font-extrabold tracking-tighter text-on-surface mb-8 leading-[1.1]">
+                        Trasformiamo le <span class="text-primary italic">opinioni</span> in dati.
+                    </h1>
+<p class="text-lg md:text-xl text-on-surface-variant max-w-lg mb-10 leading-relaxed">
+                        Sondaggi Al Top è la piattaforma digitale nata per dare valore a ogni singola voce, traducendo la complessità del pensiero umano in insight azionabili e strutturati.
+                    </p>
+<div class="flex gap-4">
+<button class="px-8 py-4 bg-primary text-on-primary font-bold rounded-xl shadow-xl shadow-primary/20 hover:bg-on-primary-fixed-variant transition-all">Inizia ora</button>
+<button class="px-8 py-4 text-primary font-bold flex items-center gap-2 group transition-all">
+                            Scopri di più
+                            <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+</div>
+<div class="relative h-[500px] w-full rounded-xl overflow-hidden shadow-2xl">
+<img alt="Data visualization" class="absolute inset-0 w-full h-full object-cover" data-alt="high-quality digital abstract visualization of flowing blue data streams and glowing particles against a clean minimal background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDn7zJ6guhMp7K2EAOdH_KqP0rUwcwjWNMaVDIpuTJPKRnlr2bwoNtPRmRQb0NufcBPtl-8ow0IGz3k89B2RcFUModxWZ3oTyF-l0XXfnnMQUdshL2vGwv-LBWtO4NxAgTW9LCxACsHJrTMImUQCDszlQOtz8lwECZm9EibA1XGjEAvcerJFtcYVRGjcUx3E1njGgYV6CRGgAWEzRMKxwodTPC18f1Z7tyPfXOAHlZl-RjVpUNf-imWsqnNRweM_vd79xzmHEQ-kRuv"/>
+<div class="absolute inset-0 bg-gradient-to-tr from-primary/20 to-transparent"></div>
+</div>
+</div>
+<!-- Decorative Background Element -->
+<div class="absolute -right-20 -bottom-20 w-[400px] h-[400px] bg-primary/5 rounded-full blur-[100px]"></div>
+</section>
+<!-- Perché Noi Section (Bento Grid Style) -->
+<section class="py-32 px-8 bg-surface-container-low">
+<div class="max-w-7xl mx-auto">
+<div class="mb-20">
+<h2 class="text-4xl font-headline font-bold mb-4">Perché scegliere noi</h2>
+<div class="w-20 h-1.5 bg-primary rounded-full"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Feature 1: Affidabilità -->
+<div class="bg-surface-container-lowest p-10 rounded-xl hover:shadow-xl transition-all duration-500 group flex flex-col justify-between h-80">
+<div>
+<div class="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-8 group-hover:bg-primary group-hover:text-white transition-all">
+<span class="material-symbols-outlined text-3xl">verified_user</span>
+</div>
+<h3 class="text-2xl font-headline font-bold mb-4">Affidabilità</h3>
+<p class="text-on-surface-variant">Protocolli di sicurezza avanzati per garantire l'integrità dei dati e la privacy dei partecipanti.</p>
+</div>
+</div>
+<!-- Feature 2: Facilità d'uso -->
+<div class="bg-surface-container-lowest p-10 rounded-xl hover:shadow-xl transition-all duration-500 group flex flex-col justify-between h-80">
+<div>
+<div class="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-8 group-hover:bg-primary group-hover:text-white transition-all">
+<span class="material-symbols-outlined text-3xl">touch_app</span>
+</div>
+<h3 class="text-2xl font-headline font-bold mb-4">Facilità d'uso</h3>
+<p class="text-on-surface-variant">Un'interfaccia intuitiva che permette a chiunque di creare sondaggi professionali in pochi minuti.</p>
+</div>
+</div>
+<!-- Feature 3: Stile -->
+<div class="bg-surface-container-lowest p-10 rounded-xl hover:shadow-xl transition-all duration-500 group flex flex-col justify-between h-80">
+<div>
+<div class="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-8 group-hover:bg-primary group-hover:text-white transition-all">
+<span class="material-symbols-outlined text-3xl">palette</span>
+</div>
+<h3 class="text-2xl font-headline font-bold mb-4">Stile Editoriale</h3>
+<p class="text-on-surface-variant">Non solo dati, ma design. I tuoi sondaggi avranno un look premium che aumenta il tasso di risposta.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Team Section -->
+<section class="py-32 px-8 bg-surface">
+<div class="max-w-7xl mx-auto">
+<div class="text-center mb-24">
+<h2 class="text-4xl font-headline font-bold mb-6">Il Cuore della Piattaforma</h2>
+<p class="text-on-surface-variant text-lg max-w-2xl mx-auto leading-relaxed">
+                        Un team multidisciplinare di esperti in data science, UX design e psicologia comportamentale uniti dalla passione per l'innovazione digitale.
+                    </p>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-16">
+<!-- Team Member 1 -->
+<div class="text-center group">
+<div class="relative inline-block mb-6">
+<div class="absolute inset-0 bg-primary rounded-full scale-0 group-hover:scale-105 transition-transform duration-300"></div>
+<img alt="Alessandro Rossi" class="relative w-48 h-48 rounded-full object-cover border-4 border-white shadow-lg" data-alt="professional portrait of a confident smiling man in his 40s wearing a light blue shirt in a bright office environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8bpb3Py-tpLXOCzkAsrEBlTRAPnRmuvTdehCAAxhiM_X7qAXFU_szbgN-_XQPNSVfFY1Zu_9bdAQlKLz_tBYb6iwQK5clCcDrZKOUhgGwz092m6ocqJLUQrRyha5Uh0Dfdfg3lNjrNVWgEeEp31yhdBWGuQtJq57aj5Mwr78yK4Z88DX1pMDXz7yiQojuFKVkfAgbn4x-P1Rpxl-gP1jHzDvJzy4c5Cbjht8a8cGVH0JzWC6cx20HZpzzReHVX-pqZ5cpjY83Cta6"/>
+</div>
+<h4 class="text-xl font-headline font-bold">Alessandro Rossi</h4>
+<p class="text-primary font-medium">Founder &amp; CEO</p>
+</div>
+<!-- Team Member 2 -->
+<div class="text-center group">
+<div class="relative inline-block mb-6">
+<div class="absolute inset-0 bg-primary rounded-full scale-0 group-hover:scale-105 transition-transform duration-300"></div>
+<img alt="Elena Bianchi" class="relative w-48 h-48 rounded-full object-cover border-4 border-white shadow-lg" data-alt="close-up portrait of an elegant woman with glasses smiling warmly against a soft-focus modern background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuApyfAJQF8c-PssuFe_PuIzJUDReFUhsXRITxH6XE2mlC2MWDWC_6r5RLq348gtVWL6s3InwJJaWUZy7Rw4K0XENxfZCffwBzxm2d8wADeVi3UcO5ZKOR36qmZZhUCtPJRICRElIbfzte5Sh4QDucaOJCxVe1TtE1XdTdjGKYXnnHh8Xd1aTXZUv9EVsmGAZDlnqfqpoEFJ34H19plfIknketF2Vyt7QOzoGWWeNCvwW2RCtOnOZrh51HtC6C5HESPKYzc_AKPghcCM"/>
+</div>
+<h4 class="text-xl font-headline font-bold">Elena Bianchi</h4>
+<p class="text-primary font-medium">Head of Product</p>
+</div>
+<!-- Team Member 3 -->
+<div class="text-center group">
+<div class="relative inline-block mb-6">
+<div class="absolute inset-0 bg-primary rounded-full scale-0 group-hover:scale-105 transition-transform duration-300"></div>
+<img alt="Marco Verde" class="relative w-48 h-48 rounded-full object-cover border-4 border-white shadow-lg" data-alt="portrait of a young creative man with a beard looking thoughtfully at the camera in a modern design studio" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqCauBTnwqcExFDlXNesuiE-n77jQh_GK7MrV5aKcESx9zRJkPRQ0GndUdA-SuVaKtllwqgRCgH3qIV5X8anwBJ3w6qNwEDml3vhUY8XACn33Hrsa-bV83uaeT6B1w_I8O54BuglTxtXc9frRUPtziBJSvz3_RHy0QG8MthYmeOQ3ItRExnCenngXvbQpOKuP6EmQXERdG2Ktt6ZC4gt2Atv5bbVyVRYRx2rv4hgzkcXO7pr0ADKQPyDOdIRIOZaUkx7Ndqh_oqoZv"/>
+</div>
+<h4 class="text-xl font-headline font-bold">Marco Verde</h4>
+<p class="text-primary font-medium">Lead Developer</p>
+</div>
+<!-- Team Member 4 -->
+<div class="text-center group">
+<div class="relative inline-block mb-6">
+<div class="absolute inset-0 bg-primary rounded-full scale-0 group-hover:scale-105 transition-transform duration-300"></div>
+<img alt="Sofia Neri" class="relative w-48 h-48 rounded-full object-cover border-4 border-white shadow-lg" data-alt="smiling woman with curly hair looking directly into the lens, bright morning sunlight hitting her face" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBTXgi4_e6ZCs_pUspGY7vXxbgJc59-8aNk8k0nWAIWOpen-pftz5hDC5A21sEsNyCWoqE88qQ39lnWkW5qnOarCpg6x7J13Jx7iymHDqRPbaN22ubNaMRMx0v3g8E9EqeVr3WZT2SV5GnrArKsV9ZOnKD32ciIo2UEa2NmLJwI7IWuzar7b5mZIxS8gJwD3R7v7hzhc1UbMwwAygFqDfnrr0CeGFt1dIEmU53b45U0EV1ShDdF_WPOwXl3sDtydQjKpdY3mPvKq6C3"/>
+</div>
+<h4 class="text-xl font-headline font-bold">Sofia Neri</h4>
+<p class="text-primary font-medium">UX Strategist</p>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="py-24 px-8">
+<div class="max-w-5xl mx-auto bg-primary-container rounded-xl p-12 text-center text-on-primary-container relative overflow-hidden">
+<div class="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-white/10 to-transparent pointer-events-none"></div>
+<h2 class="text-3xl md:text-5xl font-headline font-black mb-6 relative z-10">Pronto a dare voce alle tue idee?</h2>
+<p class="text-lg opacity-90 mb-10 max-w-2xl mx-auto relative z-10">Unisciti a migliaia di aziende e professionisti che utilizzano Sondaggi Al Top per comprendere meglio il proprio pubblico.</p>
+<button class="px-10 py-5 bg-white text-primary text-lg font-bold rounded-full shadow-2xl hover:scale-105 transition-transform relative z-10">Crea il tuo primo sondaggio</button>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-slate-50 dark:bg-slate-950 w-full py-12 border-t-0 mt-20">
+<div class="flex flex-col md:flex-row justify-between items-center px-8 max-w-7xl mx-auto space-y-4 md:space-y-0">
+<div class="font-manrope font-bold text-slate-900 dark:text-slate-100">Sondaggi Al Top</div>
+<div class="flex space-x-6">
+<a class="text-slate-500 dark:text-slate-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors font-inter text-sm body-md" href="#">Privacy Policy</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors font-inter text-sm body-md" href="#">Termini di Servizio</a>
+</div>
+<div class="flex space-x-6">
+<a class="text-slate-500 dark:text-slate-400 hover:text-blue-700 transition-colors" href="#"><span class="sr-only">Facebook</span><svg class="w-5 h-5 fill-current" viewbox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3V2z"></path></svg></a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-blue-700 transition-colors" href="#"><span class="sr-only">LinkedIn</span><svg class="w-5 h-5 fill-current" viewbox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"></path><circle cx="4" cy="4" r="2"></circle></svg></a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-blue-700 transition-colors" href="#"><span class="sr-only">Twitter</span><svg class="w-5 h-5 fill-current" viewbox="0 0 24 24"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"></path></svg></a>
+</div>
+<p class="text-slate-500 dark:text-slate-400 font-inter text-sm body-md">© 2024 Sondaggi Al Top. Tutti i diritti riservati.</p>
+</div>
+</footer>
+</body></html>

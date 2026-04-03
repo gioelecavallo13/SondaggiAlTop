@@ -1,0 +1,82 @@
+# Esegui da questa cartella: cd Sondaggi && docker compose up -d --build
+#
+# Asset Vite: con volumes ./:/var/www/html il public/build dell'immagine viene nascosto dal bind mount.
+# Dopo modifiche a resources/js o resources/css, sul host esegui:
+#   npm ci && npm run build
+# oppure una tantum:
+#   docker compose --profile assets run --rm assets
+name: sondaggi
+
+services:
+  # npm ci + vite build nel volume montato (solo quando serve: --profile assets)
+  assets:
+    image: node:22-alpine
+    profiles: ["assets"]
+    working_dir: /app
+    volumes:
+      - ./:/app
+    command: sh -c "npm ci && npm run build"
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: sondaggi_web
+    ports:
+      - "8000:80"
+    environment:
+      # Nel container "web", 127.0.0.1 non è MySQL: usare il nome servizio Compose.
+      DB_CONNECTION: mysql
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_DATABASE: sondaggi_db
+      DB_USERNAME: sondaggi_user
+      DB_PASSWORD: sondaggi_pass
+      APP_URL: http://127.0.0.1:8000
+    volumes:
+      - ./:/var/www/html
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+  db:
+    image: mysql:8.0
+    container_name: sondaggi_db
+    environment:
+      MYSQL_DATABASE: sondaggi_db
+      MYSQL_USER: sondaggi_user
+      MYSQL_PASSWORD: sondaggi_pass
+      MYSQL_ROOT_PASSWORD: rootpass_local
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./docker/mysql/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -p$$MYSQL_ROOT_PASSWORD --silent"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+    restart: unless-stopped
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: sondaggi_phpmyadmin
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:8080:80"
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_USER: root
+      PMA_PASSWORD: rootpass_local
+      PMA_ARBITRARY: 0
+      UPLOAD_LIMIT: 64M
+    restart: unless-stopped
+
+volumes:
+  mysql_data:
