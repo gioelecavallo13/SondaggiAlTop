@@ -3,11 +3,14 @@
 @section('title', 'Compila sondaggio')
 
 @section('content')
+@php
+    $scadenzaLabel = $survey['data_scadenza_label'] ?? null;
+@endphp
 <div class="page-survey-take">
     @include('partials.survey-share-qr')
-    <section class="card card-elevated p-4 border-0">
+    <section class="site-elevated-panel p-4">
         <p class="section-label mb-1">Compilazione</p>
-        <h1 class="page-title mb-2">{{ $survey['titolo'] }}</h1>
+        <h1 class="site-headline-md mb-2">{{ $survey['titolo'] }}</h1>
         @php
             $takeTags = $survey['tags'] ?? [];
         @endphp
@@ -18,6 +21,12 @@
                 <span class="text-muted small">Nessun tag</span>
             @endforelse
         </div>
+        @if($scadenzaLabel)
+            <p class="d-flex align-items-center gap-2 small text-muted mb-3 mb-md-4">
+                <i class="bi bi-calendar-event flex-shrink-0" aria-hidden="true"></i>
+                <span>Scadenza: <strong>{{ $scadenzaLabel }}</strong></span>
+            </p>
+        @endif
         @if(!empty($survey['descrizione']))
             <p class="text-muted mb-4">{{ $survey['descrizione'] }}</p>
         @endif
@@ -38,12 +47,18 @@
             <div class="alert alert-danger" role="alert">{{ $error }}</div>
         @endforeach
 
-        <form method="post" action="{{ route('surveys.submit', $survey['id']) }}" class="mt-2" id="survey-take-form" data-sm-form-loading>
+        <form
+            method="post"
+            action="{{ route('surveys.submit', $survey['id']) }}"
+            class="mt-2"
+            id="survey-take-form"
+            data-sm-form-loading
+        >
             @csrf
             @php $qi = 0; @endphp
             @foreach($survey['questions'] as $question)
                 @php $qi++; @endphp
-                <fieldset class="question card p-3 mb-3" data-question-id="{{ (int) $question['id'] }}">
+                <fieldset class="site-take-question" data-question-id="{{ (int) $question['id'] }}">
                     <legend class="h6 mb-3">
                         <span class="text-muted">Domanda {{ $qi }}</span><br>
                         {{ $question['testo'] }}
@@ -51,16 +66,27 @@
                     @foreach($question['options'] as $option)
                         <label class="form-check d-block mb-2">
                             @if($question['tipo'] === 'singola')
-                                <input class="form-check-input" type="radio" name="answers[{{ (int) $question['id'] }}]" value="{{ (int) $option['id'] }}" required>
+                                <input
+                                    class="form-check-input"
+                                    type="radio"
+                                    name="answers[{{ (int) $question['id'] }}]"
+                                    value="{{ (int) $option['id'] }}"
+                                    required
+                                >
                             @else
-                                <input class="form-check-input" type="checkbox" name="answers[{{ (int) $question['id'] }}][]" value="{{ (int) $option['id'] }}">
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    name="answers[{{ (int) $question['id'] }}][]"
+                                    value="{{ (int) $option['id'] }}"
+                                >
                             @endif
                             <span class="form-check-label">{{ $option['testo'] }}</span>
                         </label>
                     @endforeach
                 </fieldset>
             @endforeach
-            <button type="submit" class="btn btn-primary btn-lg">Invia risposte</button>
+            <button type="submit" class="btn site-btn-pill-primary btn-lg">Invia risposte</button>
         </form>
     </section>
 </div>

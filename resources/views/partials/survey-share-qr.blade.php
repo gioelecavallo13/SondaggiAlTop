@@ -7,7 +7,7 @@
 @endphp
 
 <section
-    class="sm-share-qr card card-elevated border-0 p-4 mb-4"
+    class="sm-share-qr site-elevated-panel p-4 mb-4"
     data-sm-qr-share
     data-survey-id="{{ $surveyId }}"
     data-share-url="{{ $shareUrl }}"
@@ -31,7 +31,7 @@
                 <input
                     id="{{ $shareUrlInputId }}"
                     type="text"
-                    class="form-control"
+                    class="form-control site-input"
                     readonly
                     value=""
                     data-sm-qr-url-input

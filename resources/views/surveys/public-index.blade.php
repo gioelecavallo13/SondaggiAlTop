@@ -8,17 +8,21 @@
     id="sm-public-surveys-root"
     data-search-url="{{ route('surveys.public.search') }}"
 >
-    <p class="section-label mb-1">Community</p>
-    <h1 class="page-title mb-2">Sondaggi pubblici</h1>
-    <p class="text-muted mb-4">Cerca per titolo o descrizione e filtra per tag. Partecipa ai sondaggi aperti.</p>
+    <header class="mb-4 mb-lg-5">
+        <p class="section-eyebrow mb-2">Community</p>
+        <h1 class="site-public-hero-title mb-3">Sondaggi pubblici</h1>
+        <p class="text-muted site-body-lg mb-0 site-readable-width">
+            Esplora i sondaggi aperti: cerca per titolo o descrizione e filtra per tag. Partecipa con un clic.
+        </p>
+    </header>
 
     <div id="sm-public-surveys-fetch-error" class="alert alert-warning d-none mb-3" role="status" aria-live="polite"></div>
 
-    <div class="card card-elevated border-0 mb-4 sm-public-surveys-filter-card">
+    <div class="mb-4 sm-public-surveys-filter-card site-public-filter-panel">
         <div class="sm-public-surveys-filter-layout">
             <div class="sm-public-surveys-search-col">
                 <label class="form-label mb-2 sm-public-surveys-search-heading" for="sm-public-surveys-q">
-                    <i class="bi bi-search me-2" aria-hidden="true"></i>Ricerca sondaggi
+                    <i class="bi bi-search me-2 site-icon-muted" aria-hidden="true"></i>Ricerca sondaggi
                 </label>
                 <div class="input-group sm-public-surveys-search-group">
                     <span class="input-group-text sm-public-surveys-search-addon" aria-hidden="true">
@@ -38,7 +42,7 @@
             <div class="sm-public-surveys-tags-col">
                 <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-2">
                     <span class="form-label mb-0 sm-public-surveys-tags-heading">
-                        <i class="bi bi-tags me-2" aria-hidden="true"></i>Filtra per categoria
+                        <i class="bi bi-tags me-2 site-icon-muted" aria-hidden="true"></i>Filtra per categoria
                     </span>
                     <button
                         type="button"
@@ -90,7 +94,11 @@
 
     <div class="position-relative sm-public-surveys-results-wrap" id="sm-public-surveys-results-wrap">
         <div id="sm-public-surveys-cards">
-            @include('surveys.partials.public-survey-cards', ['surveys' => $surveys->getCollection()])
+            @include('surveys.partials.public-survey-cards', [
+                'surveys' => $surveys->getCollection(),
+                'gridClass' => 'col-md-6 col-lg-4',
+                'rowGutterClass' => 'g-4',
+            ])
         </div>
         <div id="sm-public-surveys-pagination">
             @include('surveys.partials.public-survey-pagination', ['paginator' => $surveys])

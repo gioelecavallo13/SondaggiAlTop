@@ -1,3 +1,4 @@
+{{-- Deprecata: non è referenziata da routes/web.php; il fallback sotto usa solo Tailwind inline se manca la build Vite. --}}
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>

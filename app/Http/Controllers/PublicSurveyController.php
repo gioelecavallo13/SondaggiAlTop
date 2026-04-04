@@ -66,6 +66,7 @@ class PublicSurveyController extends Controller
     {
         $builder = Sondaggio::query()
             ->pubblici()
+            ->nonScaduti()
             ->with(['tags', 'autore'])
             ->withCount('risposte');
 

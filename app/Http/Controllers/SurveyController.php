@@ -4,13 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Sondaggio;
 use App\Models\Tag;
-use App\Services\AnonymousVoteCookie;
 use App\Services\SurveyService;
 use Carbon\Carbon;
 use Carbon\CarbonInterface;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
@@ -25,7 +23,7 @@ class SurveyController extends Controller
         $user = Auth::user();
         $surveys = Sondaggio::query()
             ->where('autore_id', $user->id)
-            ->orderByDesc('id')
+            ->ordineScadutiInFondo()
             ->get();
 
         $dashboardStats = $this->surveyService->dashboardStatsForAuthor((int) $user->id);
@@ -118,37 +116,21 @@ class SurveyController extends Controller
         return redirect()->route('dashboard');
     }
 
-    public function show(Request $request, Sondaggio $sondaggio): View|RedirectResponse|Response
+    public function show(Sondaggio $sondaggio): View
     {
+        if ($sondaggio->isScaduto()) {
+            $sondaggio->loadMissing('tags');
+
+            return view('surveys.take-closed', [
+                'closed' => $this->surveyService->toClosedSurveyViewArray($sondaggio),
+                'closedErrors' => [],
+            ]);
+        }
+
         $survey = $this->surveyService->loadWithQuestions($sondaggio);
-        $surveyData = $this->surveyToTakeArray($survey);
-
-        if (! $sondaggio->is_pubblico) {
-            if (! Auth::check()) {
-                return redirect()->guest(route('login', ['redirect' => $request->url()]));
-            }
-
-            return view('surveys.take', [
-                'survey' => $surveyData,
-                'takeErrors' => [],
-            ]);
-        }
-
-        if (! Auth::check()) {
-            $cookie = AnonymousVoteCookie::ensure($request);
-            $response = response()->view('surveys.take', [
-                'survey' => $surveyData,
-                'takeErrors' => [],
-            ]);
-            if ($cookie !== null) {
-                $response->withCookie($cookie);
-            }
-
-            return $response;
-        }
 
         return view('surveys.take', [
-            'survey' => $surveyData,
+            'survey' => $this->surveyService->toTakeViewArray($survey),
             'takeErrors' => [],
         ]);
     }
@@ -162,6 +144,7 @@ class SurveyController extends Controller
         return view('surveys.stats', [
             'survey' => $this->surveyToFormArray($survey),
             'stats' => $stats,
+            'is_scaduto' => $sondaggio->isScaduto(),
         ]);
     }
 
@@ -194,31 +177,6 @@ class SurveyController extends Controller
     }
 
     /**
-     * @return array<string, mixed>
-     */
-    private function surveyToTakeArray(Sondaggio $survey): array
-    {
-        $questions = [];
-        foreach ($survey->domande as $q) {
-            $questions[] = [
-                'id' => $q->id,
-                'testo' => $q->testo,
-                'tipo' => $q->tipo,
-                'options' => $q->opzioni->map(fn ($o) => ['id' => $o->id, 'testo' => $o->testo])->all(),
-            ];
-        }
-
-        return [
-            'id' => $survey->id,
-            'titolo' => $survey->titolo,
-            'descrizione' => $survey->descrizione,
-            'is_pubblico' => $survey->is_pubblico ? 1 : 0,
-            'tags' => $survey->tags->map(fn ($t) => ['id' => $t->id, 'nome' => $t->nome])->values()->all(),
-            'questions' => $questions,
-        ];
-    }
-
-    /**
      * @param  array<string, mixed>  $input
      * @return array{title: string, description: string, is_public: bool, questions: array<int, array{text: string, type: string, options: array<int, string>}>, data_scadenza: ?CarbonInterface, tag_ids: array<int, int>, errors: array<string, string>}
      */
@@ -234,7 +192,7 @@ class SurveyController extends Controller
         $rawScadenza = $input['data_scadenza'] ?? null;
         if ($rawScadenza !== null && trim((string) $rawScadenza) !== '') {
             try {
-                $dataScadenza = Carbon::parse((string) $rawScadenza);
+                $dataScadenza = Carbon::parse((string) $rawScadenza, config('app.timezone'));
             } catch (\Throwable) {
                 $errors['data_scadenza'] = 'Data di scadenza non valida.';
             }

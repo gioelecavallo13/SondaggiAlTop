@@ -207,4 +207,58 @@ class SurveyService
             'questions' => $outQuestions,
         ];
     }
+
+    /**
+     * Payload per la vista sondaggio chiuso (`surveys.take-closed`), allineato alle chiavi usate in quella Blade.
+     *
+     * @return array{id: int, titolo: string, data_scadenza_label: ?string, tags: array<int, array{id: int, nome: string}>}
+     */
+    public function toClosedSurveyViewArray(Sondaggio $survey): array
+    {
+        $survey->loadMissing('tags');
+
+        $dataScadenzaLabel = $survey->data_scadenza
+            ? $survey->data_scadenza->timezone(config('app.timezone'))->format('d/m/Y H:i')
+            : null;
+
+        return [
+            'id' => (int) $survey->id,
+            'titolo' => $survey->titolo,
+            'data_scadenza_label' => $dataScadenzaLabel,
+            'tags' => $survey->tags->map(fn ($t) => ['id' => $t->id, 'nome' => $t->nome])->values()->all(),
+        ];
+    }
+
+    /**
+     * Payload per la vista compilazione (`surveys.take`).
+     *
+     * @return array<string, mixed>
+     */
+    public function toTakeViewArray(Sondaggio $survey): array
+    {
+        $questions = [];
+        foreach ($survey->domande as $q) {
+            $questions[] = [
+                'id' => $q->id,
+                'testo' => $q->testo,
+                'tipo' => $q->tipo,
+                'options' => $q->opzioni->map(fn ($o) => ['id' => $o->id, 'testo' => $o->testo])->all(),
+            ];
+        }
+
+        $dataScadenzaLabel = $survey->data_scadenza
+            ? $survey->data_scadenza->timezone(config('app.timezone'))->format('d/m/Y H:i')
+            : null;
+
+        return [
+            'id' => $survey->id,
+            'titolo' => $survey->titolo,
+            'descrizione' => $survey->descrizione,
+            'is_pubblico' => $survey->is_pubblico ? 1 : 0,
+            'tags' => $survey->tags->map(fn ($t) => ['id' => $t->id, 'nome' => $t->nome])->values()->all(),
+            'questions' => $questions,
+            'data_scadenza_label' => $dataScadenzaLabel,
+            'is_scaduto' => $survey->isScaduto(),
+        ];
+    }
 }

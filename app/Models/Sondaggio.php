@@ -56,4 +56,43 @@ class Sondaggio extends Model
     {
         return $query->where('is_pubblico', true);
     }
+
+    /**
+     * Elenchi pubblici (home, indice / ricerca): esclude i sondaggi scaduti.
+     * Criterio allineato a {@see self::isScaduto()}: scaduto se `data_scadenza` non è null e `data_scadenza` è strettamente precedente a `now()`.
+     */
+    public function scopeNonScaduti($query)
+    {
+        $now = now();
+
+        return $query->where(function ($q) use ($now) {
+            $q->whereNull('data_scadenza')
+                ->orWhere('data_scadenza', '>=', $now);
+        });
+    }
+
+    /**
+     * Per elenchi (es. dashboard autore): prima i sondaggi ancora aperti, in fondo quelli scaduti.
+     * Criterio allineato a {@see self::isScaduto()}: scaduto solo se `data_scadenza` è strettamente nel passato rispetto a `now()`.
+     */
+    public function scopeOrdineScadutiInFondo($query)
+    {
+        $now = now();
+
+        return $query
+            ->orderByRaw(
+                'CASE WHEN data_scadenza IS NOT NULL AND data_scadenza < ? THEN 1 ELSE 0 END ASC',
+                [$now]
+            )
+            ->orderByDesc('id');
+    }
+
+    public function isScaduto(): bool
+    {
+        if ($this->data_scadenza === null) {
+            return false;
+        }
+
+        return now()->greaterThan($this->data_scadenza);
+    }
 }

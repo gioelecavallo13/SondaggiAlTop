@@ -23,6 +23,9 @@ Route::middleware('guest')->group(function (): void {
 
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')->name('logout');
 
+Route::get('/sondaggi', [PublicSurveyController::class, 'index'])->name('surveys.public.index');
+Route::get('/sondaggi/ricerca', [PublicSurveyController::class, 'search'])->name('surveys.public.search');
+
 Route::middleware('auth')->group(function (): void {
     Route::get('/dashboard', [SurveyController::class, 'dashboard'])->name('dashboard');
     Route::get('/dashboard/sondaggi/nuovo', [SurveyController::class, 'createForm'])->name('surveys.create');
@@ -31,9 +34,6 @@ Route::middleware('auth')->group(function (): void {
     Route::post('/dashboard/sondaggi/{sondaggio}/modifica', [SurveyController::class, 'update'])->name('surveys.update');
     Route::post('/dashboard/sondaggi/{sondaggio}/elimina', [SurveyController::class, 'destroy'])->name('surveys.destroy');
     Route::get('/dashboard/sondaggi/{sondaggio}/statistiche', [SurveyController::class, 'stats'])->name('surveys.stats');
+    Route::get('/sondaggi/{sondaggio}', [SurveyController::class, 'show'])->name('surveys.show');
+    Route::post('/sondaggi/{sondaggio}/compila', [ResponseController::class, 'submit'])->name('surveys.submit');
 });
-
-Route::get('/sondaggi', [PublicSurveyController::class, 'index'])->name('surveys.public.index');
-Route::get('/sondaggi/ricerca', [PublicSurveyController::class, 'search'])->name('surveys.public.search');
-Route::get('/sondaggi/{sondaggio}', [SurveyController::class, 'show'])->name('surveys.show');
-Route::post('/sondaggi/{sondaggio}/compila', [ResponseController::class, 'submit'])->name('surveys.submit');

@@ -7,7 +7,9 @@ namespace App\Support;
 final class SafeRedirect
 {
     /**
-     * Consente solo path interni sicuri (es. compilazione sondaggio dopo login).
+     * Fallback quando in sessione non c’è `url.intended` (es. link con `?redirect=` o campo hidden nei form auth).
+     * Dopo login/register si usa `redirect()->intended(SafeRedirect::afterLogin(...))`: se il middleware `auth`
+     * ha salvato l’URL del sondaggio, quello ha priorità; altrimenti si valida il candidato qui (whitelist path).
      */
     public static function afterLogin(?string $candidate): string
     {

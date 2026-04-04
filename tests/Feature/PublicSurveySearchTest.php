@@ -90,4 +90,21 @@ class PublicSurveySearchTest extends TestCase
         $this->assertStringContainsString('Film del mese', $html);
         $this->assertStringNotContainsString('Film senza tag', $html);
     }
+
+    public function test_ricerca_json_excludes_expired_public_surveys(): void
+    {
+        $user = User::factory()->create();
+        Sondaggio::query()->create([
+            'titolo' => 'Scaduto Ricerca ABC',
+            'descrizione' => null,
+            'autore_id' => $user->id,
+            'is_pubblico' => true,
+            'data_scadenza' => now()->subDay(),
+        ]);
+
+        $response = $this->getJson('/sondaggi/ricerca?q='.urlencode('Ricerca ABC'));
+
+        $response->assertOk();
+        $this->assertStringNotContainsString('Scaduto Ricerca ABC', $response->json('cards_html'));
+    }
 }

@@ -1,4 +1,4 @@
-<header class="sm-page-header">
+<header class="sm-page-header site-page-header">
     <div class="sm-page-header__title-wrap">
         @if(!empty($pageHeaderBackHref))
             <a href="{{ $pageHeaderBackHref }}" class="sm-back-link">
@@ -9,7 +9,7 @@
         @if(!empty($pageHeaderSubtitle))
             <p class="section-label mb-1">{{ $pageHeaderSubtitle }}</p>
         @endif
-        <h1 class="page-title">{{ $pageHeaderTitle }}</h1>
+        <h1 class="page-title site-page-header__title">{{ $pageHeaderTitle }}</h1>
     </div>
     @if(!empty($pageHeaderActions))
         <div class="sm-page-header__actions">

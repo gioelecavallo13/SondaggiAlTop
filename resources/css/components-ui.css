@@ -1,9 +1,13 @@
-/* Componenti UI condivisi — SondaggiModerni (importato da style.css) */
+/**
+ * Componenti UI condivisi — SondaggiModerni.
+ * @deprecated incrementalmente: preferire token --site-* / classi .site-* dove definito in design-tokens.css;
+ *   classi .sm-*, .card-elevated, .hero restano fino alla conversione delle viste (Fase 3–6).
+ */
 
 :root {
   --color-surface-page: var(--color-surface);
   --color-surface-card: var(--color-elevated);
-  --color-surface-muted: #eef1f6;
+  /* --color-surface-muted: da design-tokens.css */
 }
 
 /* Pagine */
@@ -26,6 +30,7 @@
 }
 
 .page-title {
+  font-family: var(--font-headline);
   font-size: clamp(1.35rem, 2.2vw, 1.75rem);
   font-weight: 700;
   letter-spacing: -0.02em;
@@ -76,11 +81,17 @@
   color: var(--color-primary);
 }
 
+.sm-back-link:focus-visible {
+  outline: 2px solid var(--site-color-primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
 /* Card elevata generica */
 .card-elevated {
-  background: var(--color-surface-card);
-  border: 1px solid var(--color-border-subtle);
-  border-radius: var(--radius-card);
+  background: var(--site-color-surface-container-lowest);
+  border: none;
+  border-radius: var(--radius-site-xl);
   box-shadow: var(--shadow-card);
 }
 
@@ -88,9 +99,14 @@
 .sm-empty-state {
   text-align: center;
   padding: 2.5rem 1.5rem;
-  border: 1px dashed var(--color-border-subtle);
-  border-radius: var(--radius-card);
-  background: linear-gradient(180deg, var(--color-surface-muted) 0%, var(--color-surface-card) 100%);
+  border: none;
+  border-radius: var(--radius-site-xl);
+  background: var(--site-color-surface-container-low);
+  box-shadow: var(--shadow-card);
+}
+
+.site-empty-state {
+  border-radius: var(--radius-site-xl);
 }
 
 .sm-empty-state__icon {
@@ -102,6 +118,7 @@
 }
 
 .sm-empty-state__title {
+  font-family: var(--font-headline);
   font-size: 1.125rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
@@ -128,13 +145,18 @@
 }
 
 .sm-badge-status--public {
-  background: rgba(37, 99, 235, 0.12);
+  background: rgba(var(--bs-primary-rgb), 0.12);
   color: var(--color-primary-dark);
 }
 
 .sm-badge-status--private {
-  background: rgba(107, 114, 128, 0.15);
-  color: #4b5563;
+  background: color-mix(in srgb, var(--site-color-outline) 16%, var(--site-color-surface-container-low));
+  color: var(--site-color-on-surface-variant);
+}
+
+.sm-badge-status--expired {
+  background: color-mix(in srgb, var(--site-color-outline) 22%, var(--site-color-surface-container-low));
+  color: var(--site-color-on-surface-variant);
 }
 
 /* Dashboard card */
@@ -195,7 +217,7 @@
   gap: 1rem;
   padding: 1.25rem 1.5rem;
   border-radius: var(--radius-card);
-  background: linear-gradient(135deg, rgba(37, 99, 235, 0.08), rgba(124, 58, 237, 0.06));
+  background: linear-gradient(135deg, rgba(var(--bs-primary-rgb), 0.08), rgba(var(--site-primary-container-rgb), 0.06));
   border: 1px solid var(--color-border-subtle);
   margin-bottom: 1.5rem;
 }
@@ -227,7 +249,7 @@
   background: linear-gradient(
     90deg,
     var(--color-surface-muted) 0%,
-    #f3f4f6 50%,
+    var(--site-color-surface-container-high) 50%,
     var(--color-surface-muted) 100%
   );
   background-size: 200% 100%;
@@ -301,7 +323,7 @@ form.is-loading[aria-busy="true"] {
 .about-highlight {
   border-left: 4px solid var(--color-primary);
   padding: 1rem 1.25rem;
-  background: rgba(37, 99, 235, 0.06);
+  background: rgba(var(--bs-primary-rgb), 0.06);
   border-radius: 0 var(--radius-card) var(--radius-card) 0;
   margin-top: 1.5rem;
 }
@@ -311,8 +333,22 @@ form.is-loading[aria-busy="true"] {
   width: 4rem;
   height: 4rem;
   border-radius: 50%;
-  background: rgba(34, 197, 94, 0.15);
-  color: #15803d;
+  background: rgba(var(--bs-success-rgb), 0.14);
+  color: var(--bs-success);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  margin-bottom: 1.25rem;
+}
+
+/* Sondaggio chiuso / scaduto (stesso layout di .site-thanks, tono neutro) */
+.sm-survey-closed-icon {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  background: rgba(var(--bs-secondary-rgb), 0.14);
+  color: var(--bs-secondary);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -357,13 +393,13 @@ form.is-loading[aria-busy="true"] {
 .sm-builder-submit {
   min-width: min(100%, 14rem);
   font-weight: 600;
-  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.28);
+  box-shadow: 0 4px 16px rgba(var(--bs-primary-rgb), 0.28);
   transition: transform var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 .sm-builder-submit:hover {
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.32);
+  box-shadow: 0 6px 20px rgba(var(--bs-primary-rgb), 0.32);
 }
 
 .sm-builder-add-question {
@@ -393,7 +429,7 @@ form.is-loading[aria-busy="true"] {
 }
 
 .sm-question-card:focus-within {
-  outline: 3px solid rgba(37, 99, 235, 0.22);
+  outline: 3px solid rgba(var(--bs-primary-rgb), 0.22);
   outline-offset: 2px;
 }
 
@@ -422,9 +458,9 @@ form.is-loading[aria-busy="true"] {
 }
 
 .sm-question-card__remove:hover {
-  color: #b91c1c !important;
-  border-color: rgba(185, 28, 28, 0.45) !important;
-  background-color: rgba(254, 226, 226, 0.35) !important;
+  color: var(--site-color-on-error-container) !important;
+  border-color: color-mix(in srgb, var(--site-color-error) 45%, transparent) !important;
+  background-color: color-mix(in srgb, var(--site-color-error-container) 40%, transparent) !important;
 }
 
 @keyframes sm-question-enter {
@@ -538,9 +574,9 @@ form.is-loading[aria-busy="true"] {
 /* Elenco sondaggi pubblici */
 .sm-tag-pill {
   font-weight: 500;
-  background: rgba(37, 99, 235, 0.12);
+  background: rgba(var(--bs-primary-rgb), 0.12);
   color: var(--color-primary);
-  border: 1px solid rgba(37, 99, 235, 0.2);
+  border: 1px solid rgba(var(--bs-primary-rgb), 0.2);
 }
 
 /* Layout filtri: colonna su mobile; su lg griglia fissa (~65% / ~35%) così la ricerca resta larga anche con molti tag */
@@ -614,7 +650,7 @@ form.is-loading[aria-busy="true"] {
 
 .sm-public-surveys-search-input:focus {
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 0.2rem rgba(37, 99, 235, 0.18);
+  box-shadow: 0 0 0 0.2rem rgba(var(--bs-primary-rgb), 0.18);
 }
 
 .sm-public-surveys-reset {
@@ -695,7 +731,7 @@ form.is-loading[aria-busy="true"] {
 }
 
 .sm-tag-filter-label.sm-tag-chip:hover {
-  border-color: rgba(37, 99, 235, 0.35);
+  border-color: rgba(var(--bs-primary-rgb), 0.35);
   color: var(--color-text);
 }
 
@@ -714,13 +750,13 @@ form.is-loading[aria-busy="true"] {
   color: #fff;
   background-color: var(--color-primary);
   border-color: var(--color-primary);
-  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.28);
+  box-shadow: 0 4px 12px rgba(var(--bs-primary-rgb), 0.28);
 }
 
 .sm-tag-filter-label.sm-tag-chip.active:hover {
   border-color: var(--color-primary);
   color: #fff;
-  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.32);
+  box-shadow: 0 6px 16px rgba(var(--bs-primary-rgb), 0.32);
 }
 
 .sm-public-surveys-active-filters__label {
@@ -747,8 +783,8 @@ form.is-loading[aria-busy="true"] {
 }
 
 .sm-active-filter-pill--query {
-  border-color: rgba(37, 99, 235, 0.25);
-  background: rgba(37, 99, 235, 0.06);
+  border-color: rgba(var(--bs-primary-rgb), 0.25);
+  background: rgba(var(--bs-primary-rgb), 0.06);
 }
 
 .sm-active-filter-pill__text {

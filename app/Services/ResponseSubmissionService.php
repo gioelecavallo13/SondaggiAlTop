@@ -65,22 +65,6 @@ class ResponseSubmissionService
             ->exists();
     }
 
-    public function hasResponseForClient(int $surveyId, string $clientId): bool
-    {
-        return Risposta::query()
-            ->where('sondaggio_id', $surveyId)
-            ->where('client_id', $clientId)
-            ->exists();
-    }
-
-    public function hasResponseForFingerprint(int $surveyId, string $fingerprint): bool
-    {
-        return Risposta::query()
-            ->where('sondaggio_id', $surveyId)
-            ->where('session_fingerprint', $fingerprint)
-            ->exists();
-    }
-
     public function countRecentSubmitAttempts(int $surveyId, string $ipHash, int $windowSeconds): int
     {
         return SurveySubmitAttempt::query()
@@ -147,11 +131,24 @@ class ResponseSubmissionService
     }
 
     /**
+     * Invio risposte solo per utente autenticato (sondaggi pubblici e privati).
+     *
      * @param  array<int, array<int>>  $normalizedAnswers
      * @return array{ok: bool, errors: array<int, string>}
      */
-    public function submitPublic(Sondaggio $survey, Request $request, array $normalizedAnswers): array
+    public function submitAuthenticated(Sondaggio $survey, Request $request, Authenticatable $user, array $normalizedAnswers): array
     {
+        if ($survey->isScaduto()) {
+            $label = $survey->data_scadenza->timezone(config('app.timezone'))->format('d/m/Y H:i');
+
+            return [
+                'ok' => false,
+                'errors' => [
+                    "Questo sondaggio non accetta più risposte (scadenza: {$label}).",
+                ],
+            ];
+        }
+
         $window = (int) config('sondaggi.rate_limit_window_seconds', 900);
         $maxAttempts = (int) config('sondaggi.rate_limit_max_attempts', 30);
 
@@ -163,45 +160,13 @@ class ResponseSubmissionService
 
         $this->recordSubmitAttempt($survey->id, $ipHash);
 
-        $fingerprint = $this->requestFingerprint($request);
-        $user = $request->user();
-
-        if ($user !== null) {
-            $userId = (int) $user->getAuthIdentifier();
-            if ($this->hasResponseForUser($survey->id, $userId)) {
-                return ['ok' => false, 'errors' => ['Hai già inviato una risposta per questo sondaggio.']];
-            }
-            $this->saveResponse($survey->id, $userId, $normalizedAnswers, $fingerprint, null, $ipHash);
-
-            return ['ok' => true, 'errors' => []];
-        }
-
-        $clientId = AnonymousVoteCookie::cookieValue($request);
-        if ($clientId !== null && $this->hasResponseForClient($survey->id, $clientId)) {
-            return ['ok' => false, 'errors' => ['Hai già inviato una risposta per questo sondaggio.']];
-        }
-
-        if ($this->hasResponseForFingerprint($survey->id, $fingerprint)) {
-            return ['ok' => false, 'errors' => ['Hai già inviato una risposta per questo sondaggio.']];
-        }
-
-        $this->saveResponse($survey->id, null, $normalizedAnswers, $fingerprint, $clientId, $ipHash);
-
-        return ['ok' => true, 'errors' => []];
-    }
-
-    /**
-     * @param  array<int, array<int>>  $normalizedAnswers
-     * @return array{ok: bool, errors: array<int, string>}
-     */
-    public function submitPrivate(Sondaggio $survey, Authenticatable $user, array $normalizedAnswers): array
-    {
         $userId = (int) $user->getAuthIdentifier();
         if ($this->hasResponseForUser($survey->id, $userId)) {
-            return ['ok' => false, 'errors' => ['Hai già inviato una risposta per questo sondaggio privato.']];
+            return ['ok' => false, 'errors' => ['Hai già inviato una risposta per questo sondaggio.']];
         }
 
-        $this->saveResponse($survey->id, $userId, $normalizedAnswers, null, null, null);
+        $fingerprint = $this->requestFingerprint($request);
+        $this->saveResponse($survey->id, $userId, $normalizedAnswers, $fingerprint, null, $ipHash);
 
         return ['ok' => true, 'errors' => []];
     }

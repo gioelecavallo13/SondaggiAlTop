@@ -11,6 +11,7 @@ class HomeController extends Controller
     {
         $surveys = Sondaggio::query()
             ->pubblici()
+            ->nonScaduti()
             ->with(['tags', 'autore'])
             ->withCount('risposte')
             ->orderByDesc('id')

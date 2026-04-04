@@ -35,7 +35,7 @@ class AuthController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->to(SafeRedirect::afterLogin($credentials['redirect'] ?? null));
+        return redirect()->intended(SafeRedirect::afterLogin($credentials['redirect'] ?? null));
     }
 
     public function showRegister(Request $request): View
@@ -64,7 +64,7 @@ class AuthController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->to(SafeRedirect::afterLogin($validated['redirect'] ?? null));
+        return redirect()->intended(SafeRedirect::afterLogin($validated['redirect'] ?? null));
     }
 
     public function logout(Request $request): RedirectResponse

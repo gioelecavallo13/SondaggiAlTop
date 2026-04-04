@@ -81,7 +81,7 @@ window.Chart = Chart;
   }
 
   const surveyForm = document.querySelector('form[action*="/compila"]');
-  if (surveyForm) {
+  if (surveyForm && !surveyForm.hasAttribute("data-survey-take-closed")) {
     const questions = Array.from(surveyForm.querySelectorAll("[data-question-id]"));
     const progressBar = document.getElementById("survey-progress-bar");
     const progressText = document.getElementById("survey-progress-text");
@@ -410,6 +410,39 @@ window.Chart = Chart;
     };
 
     drawQr();
+  }
+
+  const statsCopyBtn = document.querySelector("[data-sm-stats-copy-link]");
+  if (statsCopyBtn) {
+    const shareUrl = statsCopyBtn.getAttribute("data-share-url") || "";
+    const originalHtml = statsCopyBtn.innerHTML;
+    statsCopyBtn.addEventListener("click", async () => {
+      if (!shareUrl) return;
+      statsCopyBtn.disabled = true;
+      statsCopyBtn.setAttribute("aria-busy", "true");
+      statsCopyBtn.innerHTML =
+        '<i class="bi bi-check2" aria-hidden="true"></i> Link copiato';
+      try {
+        if (navigator.clipboard && typeof navigator.clipboard.writeText === "function") {
+          await navigator.clipboard.writeText(shareUrl);
+        } else {
+          const tmp = document.createElement("input");
+          tmp.value = shareUrl;
+          document.body.appendChild(tmp);
+          tmp.select();
+          document.execCommand("copy");
+          document.body.removeChild(tmp);
+        }
+      } catch {
+        /* fallback: utente può usare "Apri sondaggio" */
+      } finally {
+        window.setTimeout(() => {
+          statsCopyBtn.disabled = false;
+          statsCopyBtn.removeAttribute("aria-busy");
+          statsCopyBtn.innerHTML = originalHtml;
+        }, 2000);
+      }
+    });
   }
 
   const publicRoot = document.getElementById("sm-public-surveys-root");
