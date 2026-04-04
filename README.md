@@ -7,51 +7,137 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+Applicazione **Sondaggi** su [Laravel](https://laravel.com/docs); sotto: riferimento operativo per Docker, porte e deploy VPS (allineato al piano stack tipo FitLifeMilano).
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Docker e deploy
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Prerequisiti
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- **Docker Engine** e plugin **Docker Compose** (v2).
+- File **`.env`** nella root del repository (copia da **`.env.example`**) con almeno `APP_KEY` (generabile con `php artisan key:generate` fuori da Docker se serve).
 
-## Learning Laravel
+### Colima (senza Docker Desktop)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Su macOS o Linux puoi usare [Colima](https://github.com/abiosoft/colima) come backend Docker. Avvia la VM e poi gli stessi comandi `docker compose` della sezione sviluppo; i **bind mount** `./` funzionano per progetti sotto la directory home condivisa con la VM (comportamento predefinito).
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Da terminale: `colima start`, poi `docker compose -f docker-compose.dev.yml -f docker-compose.yml up -d --build`.
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+In **Cursor / VS Code**: *Terminal › Run Task…* (o *Esegui attività*) e scegli **Sondaggi: Colima + dev stack (build + mount)** (`.vscode/tasks.json`: avvia Colima se serve, poi compose con build e mount dev). Per stack senza worker usa il task **…senza worker**.
 
-## Agentic Development
+### Porte e URL
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+L’HTTP dell’app nel container è sempre **`php artisan serve` sulla porta 10000** (interna al container).
+
+| Stack | App (browser) | phpMyAdmin (loopback) | MySQL su host |
+|--------|----------------|------------------------|---------------|
+| `docker compose` solo file base | `http://127.0.0.1:8000` → **:10000** | nessuna porta pubblicata sul host (solo rete Docker) | `127.0.0.1:3306` |
+| `docker-compose.dev.yml` + base | come sopra **e** `http://127.0.0.1:18080` → **:10000** | `http://127.0.0.1:8080` | come sopra |
+| base + `docker-compose.prod.yml` | come base | `http://127.0.0.1:8084` | come sopra |
+
+Healthcheck HTTP dell’app: **`GET /up`** sulla porta 10000 del container.
+
+### Variabili d’ambiente essenziali
+
+- **`MYSQL_*`** e coerenza con `DB_*` (vedi `.env.example`).
+- **`APP_KEY`**, **`APP_URL`**, in produzione **`APP_ENV=production`**, **`APP_DEBUG=false`**, **`APP_RESPONSE_SALT`**.
+- Con **`QUEUE_CONNECTION=database`**: nel `.env` impostare anche **`COMPOSE_PROFILES=queue`** così Compose avvia il servizio **worker**. Con **`sync`**, omettere `COMPOSE_PROFILES`.
+- Overlay produzione: **`SONDAGGI_MEDIA_PATH`**, **`SONDAGGI_LOGS_PATH`** (opzionali; default in `docker-compose.prod.yml`).
+
+### Sviluppo locale (bind mount + phpMyAdmin)
 
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+docker compose -f docker-compose.dev.yml -f docker-compose.yml up -d --build
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+In **`APP_ENV=production`**, l’entrypoint esegue `config:cache`, `route:cache`, `view:cache` (e `event:cache` se applicabile) prima di avviare `serve` / `migrate` / `worker`.
 
-## Contributing
+### Asset (Vite)
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+L’immagine Docker compila gli asset in **build** (`npm run build` nello stage Node); **`public/build`** è incluso nell’immagine.
 
-## Code of Conduct
+Con il bind mount in dev, la cartella `public/build` dell’host può mascherare quella dell’immagine. Rigenerare gli asset con:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```bash
+docker compose -f docker-compose.dev.yml -f docker-compose.yml --profile assets run --rm assets
+```
 
-## Security Vulnerabilities
+oppure `npm ci && npm run build` sul host.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Stack base e produzione (VPS)
+
+Solo immagine applicativa e volumi named (nessun bind dell’intero repo):
+
+```bash
+docker compose up -d --build
+```
+
+Produzione con mount host per media e log (e phpMyAdmin su **8084**):
+
+```bash
+docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+```
+
+Sulla VPS creare directory dati e permessi (UID **www-data** su Alpine spesso **82**):
+
+```bash
+sudo mkdir -p /data/sondaggi/media /data/sondaggi/logs
+sudo chown -R 82:82 /data/sondaggi/media /data/sondaggi/logs
+```
+
+Path del codice sul server consigliato per rsync/deploy: **`/opt/sondaggi`** (variabile **`DEPLOY_PATH`** in `deploy.env`).
+
+### Database e migrazioni
+
+Lo schema è definito **solo** dalle **migrations** Laravel. All’avvio dello stack, il servizio one-shot **`migrate`** esegue `php artisan migrate --force` dopo che MySQL è healthy; **`web`** e **`worker`** partono solo al termine con successo di **`migrate`**. Nessun DDL duplicato in `docker/mysql/init`.
+
+### Traefik (opzionale)
+
+Non è incluso in questo repository. In VPS si può attaccare un reverse proxy esterno (rete Docker dedicata, label TLS) puntando al servizio **`web`** sulla **porta interna 10000** (es. `loadbalancer.server.port=10000`).
+
+### Worker vs coda `sync`
+
+- **`QUEUE_CONNECTION=database`**: usare **`COMPOSE_PROFILES=queue`** nel `.env` per avviare il container **`worker`** (`queue:work`).
+- **`QUEUE_CONNECTION=sync`**: non impostare `COMPOSE_PROFILES`; il servizio worker non deve essere attivo.
+
+### Deploy da postazione locale (rsync)
+
+1. `cp deploy.env.example deploy.env` e compilare almeno **`DEPLOY_HOST`** (path default **`DEPLOY_PATH=/opt/sondaggi`**).
+2. `./scripts/deploy-vps.sh` oppure `./scripts/deploy-vps.sh --dry-run` per una prova a secco.
+
+Lo script **non** esegue `docker compose down -v` e **non** deve usare `DEPLOY_PATH` sotto `/data/`. Sulla VPS, con coda database, il `.env` deve includere **`COMPOSE_PROFILES=queue`**.
+
+### Log in produzione (persistenza)
+
+Con `docker-compose.prod.yml`, i log Laravel sono sul disco host (default **`/data/sondaggi/logs`**). Restano tra un deploy e l’altro del codice sotto **`/opt/sondaggi`**.
+
+#### Rotazione (`logrotate`)
+
+Esempio `/etc/logrotate.d/sondaggi`:
+
+```
+/data/sondaggi/logs/*.log {
+    weekly
+    rotate 8
+    compress
+    delaycompress
+    missingok
+    notifempty
+    copytruncate
+}
+```
+
+Con `LOG_CHANNEL=daily` adattare i glob; `copytruncate` aiuta se il processo tiene aperto il file.
+
+### Checklist sicurezza (produzione)
+
+- **`APP_ENV=production`**, **`APP_DEBUG=false`**, **`APP_KEY`** presente (mai in git).
+- **`APP_RESPONSE_SALT`** impostato (hash IP / rate limit sondaggi pubblici).
+- Permessi di scrittura per **`www-data`** su `storage` e `bootstrap/cache`; con bind **`/data/...`** allineare `chown` all’UID del container (spesso **82**).
+- Segreti MySQL e `.env` applicativo solo sul server, non nel repository.
+
+## Laravel (generico)
+
+Documentazione framework: [laravel.com/docs](https://laravel.com/docs). Per segnalare vulnerabilità nel **framework** Laravel: [taylor@laravel.com](mailto:taylor@laravel.com).
 
 ## License
 

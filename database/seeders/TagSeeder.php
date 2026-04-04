@@ -27,6 +27,16 @@ class TagSeeder extends Seeder
         ['Viaggi', 'viaggi'],
         ['Cibo', 'cibo'],
         ['Social Media', 'social-media'],
+        ['Scienza', 'scienza'],
+        ['Ambiente', 'ambiente'],
+        ['Arte', 'arte'],
+        ['Moda', 'moda'],
+        ['Finanza', 'finanza'],
+        ['Hobby', 'hobby'],
+        ['Storia', 'storia'],
+        ['Auto e motori', 'auto-e-motori'],
+        ['Eventi', 'eventi'],
+        ['Famiglia', 'famiglia'],
     ];
 
     public function run(): void

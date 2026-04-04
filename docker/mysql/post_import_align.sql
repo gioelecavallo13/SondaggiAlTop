@@ -1,5 +1,5 @@
 -- Eseguire dopo import dump phpMyAdmin: allinea `risposte` e crea `survey_submit_attempts`
--- come in docker/mysql/init/001_schema.sql (non in init/: non va eseguito al bootstrap del volume).
+-- come nello schema definito dalle migrations Laravel (non in init/: non va eseguito al bootstrap del volume).
 
 USE `sondaggi_db`;
 

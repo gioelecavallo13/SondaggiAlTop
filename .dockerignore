@@ -1,3 +1,4 @@
+# Contesto build Docker: escludere ciò che non serve nel runtime (modello snello tipo FitLife).
 .git
 .gitignore
 node_modules
@@ -5,6 +6,8 @@ vendor
 .env
 .env.*
 !.env.example
+deploy.env
+
 storage/logs/*
 storage/framework/cache/*
 storage/framework/sessions/*
@@ -15,3 +18,12 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
+
+.DS_Store
+Thumbs.db
+.cursor/
+coverage/
+auth.json
+docker/mysql/backups/
+tests/
+.github/

@@ -1,0 +1,25 @@
+# Overlay produzione (VPS): mount host per media pubblici e log Laravel.
+# Variabili opzionali nel `.env` del progetto (interpolazione Compose): SONDAGGI_MEDIA_PATH, SONDAGGI_LOGS_PATH.
+#
+# Avvio:
+#   docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+#
+# Prima sulla VPS (esempio):
+#   sudo mkdir -p /data/sondaggi/media /data/sondaggi/logs
+#   sudo chown -R 82:82 /data/sondaggi/media /data/sondaggi/logs
+# (82 = www-data tipico su immagine php Alpine; verificare con: docker run --rm sondaggi-app id www-data)
+
+services:
+  web:
+    volumes:
+      - ${SONDAGGI_MEDIA_PATH:-/data/sondaggi/media}:/var/www/html/storage/app/public
+      - ${SONDAGGI_LOGS_PATH:-/data/sondaggi/logs}:/var/www/html/storage/logs
+
+  worker:
+    volumes:
+      - ${SONDAGGI_MEDIA_PATH:-/data/sondaggi/media}:/var/www/html/storage/app/public
+      - ${SONDAGGI_LOGS_PATH:-/data/sondaggi/logs}:/var/www/html/storage/logs
+
+  phpmyadmin:
+    ports:
+      - "127.0.0.1:8084:80"

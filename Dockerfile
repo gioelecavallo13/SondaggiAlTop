@@ -1,4 +1,4 @@
-# Stage 1: compila CSS/JS con Vite (necessario per @vite in produzione)
+# Stage 1: asset Vite (necessario per @vite in produzione)
 FROM node:22-alpine AS frontend
 WORKDIR /app
 COPY package.json package-lock.json ./
@@ -6,24 +6,22 @@ RUN npm ci
 COPY . .
 RUN npm run build
 
-# Stage 2: applicazione PHP + Apache
-FROM php:8.4-apache
+# Stage 2: runtime PHP (modello FitLife backend: FPM Alpine, senza Apache; avvio con artisan serve :10000)
+FROM php:8.4-fpm-alpine
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN apk add --no-cache \
     git \
     unzip \
     libzip-dev \
+    oniguruma-dev \
+    linux-headers \
+    $PHPIZE_DEPS \
     && docker-php-ext-configure zip \
-    && docker-php-ext-install -j"$(nproc)" pdo_mysql zip \
-    && rm -rf /var/lib/apt/lists/*
+    && docker-php-ext-install -j"$(nproc)" pdo_mysql mbstring zip \
+    && apk del $PHPIZE_DEPS \
+    && rm -rf /tmp/* /var/cache/apk/*
 
-ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
-
-RUN a2enmod rewrite \
-    && sed -ri -e 's/AllowOverride\s+None/AllowOverride All/g' /etc/apache2/apache2.conf
-
-RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf \
-    && sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf
+RUN apk add --no-cache curl
 
 WORKDIR /var/www/html
 
@@ -45,5 +43,6 @@ COPY scripts/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
+CMD ["serve"]
 
-EXPOSE 80
+EXPOSE 10000

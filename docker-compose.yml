@@ -1,60 +1,115 @@
-# Esegui da questa cartella: cd Sondaggi && docker compose up -d --build
+# Stack base (prod/CI): immagine autosufficiente, nessun bind dell’intero repo.
+# Variabili ${MYSQL_*} e interpolazione: Docker Compose usa il file `.env` nella directory del progetto.
 #
-# Asset Vite: con volumes ./:/var/www/html il public/build dell'immagine viene nascosto dal bind mount.
-# Dopo modifiche a resources/js o resources/css, sul host esegui:
-#   npm ci && npm run build
-# oppure una tantum:
-#   docker compose --profile assets run --rm assets
+# Schema DB: solo `php artisan migrate` (servizio one-shot `migrate`). La cartella
+# `docker/mysql/init` è lasciata vuota (nessun DDL duplicato rispetto alle migrations).
+#
+# Sviluppo locale con codice montato dall’host:
+#   docker compose -f docker-compose.dev.yml -f docker-compose.yml up -d --build
+# (prima `docker-compose.dev.yml`, poi `docker-compose.yml`, come FitLifeMilano.)
+#
+# Produzione VPS (media/log su host, phpMyAdmin solo loopback porta 8084):
+#   docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+#
+# Solo questo file (senza dev/prod): phpMyAdmin non espone porte sull’host; usare overlay dev o rete Docker.
+#
+# Coda Laravel: con `QUEUE_CONNECTION=database` impostare nel `.env` del progetto `COMPOSE_PROFILES=queue`
+# per avviare il servizio `worker` (vedi `.env.example`). Con `sync` omettere il profilo.
 name: sondaggi
 
-services:
-  # npm ci + vite build nel volume montato (solo quando serve: --profile assets)
-  assets:
-    image: node:22-alpine
-    profiles: ["assets"]
-    working_dir: /app
-    volumes:
-      - ./:/app
-    command: sh -c "npm ci && npm run build"
+x-app-build: &app-build
+  context: .
+  dockerfile: Dockerfile
 
-  web:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: sondaggi_web
-    ports:
-      - "8000:80"
-    environment:
-      # Nel container "web", 127.0.0.1 non è MySQL: usare il nome servizio Compose.
-      DB_CONNECTION: mysql
-      DB_HOST: db
-      DB_PORT: 3306
-      DB_DATABASE: sondaggi_db
-      DB_USERNAME: sondaggi_user
-      DB_PASSWORD: sondaggi_pass
-      APP_URL: http://127.0.0.1:8000
-    volumes:
-      - ./:/var/www/html
+x-app-image: &app-image sondaggi-app
+
+x-app-env: &app-env
+  env_file:
+    - .env
+  environment:
+    PORT: "10000"
+    DB_CONNECTION: mysql
+    DB_HOST: db
+    DB_PORT: "3306"
+    DB_DATABASE: ${MYSQL_DATABASE:-sondaggi_db}
+    DB_USERNAME: ${MYSQL_USER:-sondaggi_user}
+    DB_PASSWORD: ${MYSQL_PASSWORD:-sondaggi_pass}
+
+x-app-volumes: &app-volumes
+  - sondaggi_vendor:/var/www/html/vendor
+  - sondaggi_storage:/var/www/html/storage
+  - sondaggi_bootstrap_cache:/var/www/html/bootstrap/cache
+
+services:
+  migrate:
+    build: *app-build
+    image: *app-image
+    container_name: sondaggi_migrate
+    <<: *app-env
+    volumes: *app-volumes
+    command: ["migrate"]
     depends_on:
       db:
         condition: service_healthy
+    restart: "no"
+
+  web:
+    build: *app-build
+    image: *app-image
+    container_name: sondaggi_web
+    <<: *app-env
+    ports:
+      - "8000:10000"
+    volumes: *app-volumes
+    command: ["serve"]
+    depends_on:
+      db:
+        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://127.0.0.1:10000/up >/dev/null"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 50s
+    restart: unless-stopped
+
+  worker:
+    build: *app-build
+    image: *app-image
+    container_name: sondaggi_worker
+    profiles:
+      - queue
+    <<: *app-env
+    volumes: *app-volumes
+    command: ["worker"]
+    depends_on:
+      db:
+        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
     restart: unless-stopped
 
   db:
     image: mysql:8.0
     container_name: sondaggi_db
     environment:
-      MYSQL_DATABASE: sondaggi_db
-      MYSQL_USER: sondaggi_user
-      MYSQL_PASSWORD: sondaggi_pass
-      MYSQL_ROOT_PASSWORD: rootpass_local
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-sondaggi_db}
+      MYSQL_USER: ${MYSQL_USER:-sondaggi_user}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-sondaggi_pass}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-rootpass_local}
     ports:
       - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
       - ./docker/mysql/init:/docker-entrypoint-initdb.d:ro
     healthcheck:
-      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -p$$MYSQL_ROOT_PASSWORD --silent"]
+      test:
+        [
+          "CMD-SHELL",
+          "mysqladmin ping -h 127.0.0.1 -uroot -p$$MYSQL_ROOT_PASSWORD --silent && mysql -h 127.0.0.1 -u$$MYSQL_USER -p$$MYSQL_PASSWORD -D $$MYSQL_DATABASE -e 'SELECT 1' >/dev/null 2>&1",
+        ]
       interval: 10s
       timeout: 5s
       retries: 10
@@ -67,16 +122,18 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    ports:
-      - "127.0.0.1:8080:80"
+    # Porta host solo negli overlay: `docker-compose.dev.yml` (8080), `docker-compose.prod.yml` (8084 loopback).
     environment:
       PMA_HOST: db
       PMA_PORT: 3306
       PMA_USER: root
-      PMA_PASSWORD: rootpass_local
+      PMA_PASSWORD: ${MYSQL_ROOT_PASSWORD:-rootpass_local}
       PMA_ARBITRARY: 0
       UPLOAD_LIMIT: 64M
     restart: unless-stopped
 
 volumes:
   mysql_data:
+  sondaggi_vendor:
+  sondaggi_storage:
+  sondaggi_bootstrap_cache:
